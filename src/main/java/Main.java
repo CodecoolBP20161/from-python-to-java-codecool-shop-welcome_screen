@@ -21,7 +21,7 @@ public class Main {
         get("/watches", ProductController::renderWatches, new ThymeleafTemplateEngine());
         get("/phones", ProductController::renderPhones, new ThymeleafTemplateEngine());
         get("/tablet", ProductController::renderTablets, new ThymeleafTemplateEngine());
-
+        get("/others", ProductController::renderOthers, new ThymeleafTemplateEngine());
         get("/hello", (req, res) -> "Hello World");
 
     }
@@ -39,6 +39,8 @@ public class Main {
         supplierDataStore.add(lenovo);
         Supplier apple = new Supplier("Apple", "Digital content and services");
         supplierDataStore.add(apple);
+        Supplier codeshop = new Supplier("Codeshop", "Everything for a good workplace");
+        supplierDataStore.add(codeshop);
 
 
         //setting up a new product category
@@ -50,7 +52,8 @@ public class Main {
         productCategoryDataStore.add(phones);
         ProductCategory watches = new ProductCategory("Watches", "Hardware", "Smartwatch.");
         productCategoryDataStore.add(watches);
-
+        ProductCategory others = new ProductCategory("Others", "Hardware", "Smartwatch.");
+        productCategoryDataStore.add(others);
 
         //setting up products and printing it
         productDataStore.add(new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
@@ -58,6 +61,10 @@ public class Main {
         productDataStore.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
         productDataStore.add(new Product("Iwatch", 389, "USD", "Instant get...or not?", watches, apple));
         productDataStore.add(new Product("HTC", 115, "USD", "best phone ever", phones, amazon));
+        productDataStore.add(new Product("Sound Bowl", 59, "USD", "Ring-Ring", others, codeshop));
+        productDataStore.add(new Product("White Board", 129, "USD", "for brainstorming", others, codeshop));
+        productDataStore.add(new Product("White Board Maxx 290", 39, "USD", "for drawing tables and classes", others, codeshop));
+        productDataStore.add(new Product("White Board Eraser", 115, "USD", "for 'drop' table", others, codeshop));
 
     }
 

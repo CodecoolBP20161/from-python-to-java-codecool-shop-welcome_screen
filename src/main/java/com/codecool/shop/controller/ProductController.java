@@ -59,6 +59,16 @@ public class ProductController {
         return new ModelAndView(params, "product/index");
     }
 
+    public static ModelAndView renderOthers(Request req, Response res) {
+        ProductDao productDataStore = ProductDaoMem.getInstance();
+        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+
+        Map params = new HashMap<>();
+        params.put("category", productCategoryDataStore.find(5));
+        params.put("products", productDataStore.getBy(productCategoryDataStore.find(5)));
+        return new ModelAndView(params, "product/index");
+    }
+
 
 
 
