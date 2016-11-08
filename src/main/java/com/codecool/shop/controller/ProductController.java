@@ -28,5 +28,14 @@ public class ProductController {
         params.put("products", productDataStore.getBy(productCategoryDataStore.find(1)));
         return new ModelAndView(params, "product/index");
     }
+    public static ModelAndView renderWatches(Request req, Response res) {
+        ProductDao productDataStore = ProductDaoMem.getInstance();
+        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+
+        Map params = new HashMap<>();
+        params.put("category", productCategoryDataStore.find(3));
+        params.put("products", productDataStore.getBy(productCategoryDataStore.find(3)));
+        return new ModelAndView(params, "product/index");
+    }
 
 }

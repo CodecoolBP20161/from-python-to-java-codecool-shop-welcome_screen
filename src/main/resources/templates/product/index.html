@@ -35,15 +35,16 @@
 
 <div class="container">
     <div class="well well-sm">
+        <strong th:text="${category.name}">Category Title</strong>
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Products
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
                 <li><a href="#">All</a></li>
-                <li><a href="#">Tablet</a></li>
+                <li><a href="tablet">Tablet</a></li>
                 <li><a href="#">Phones</a></li>
-                <li><a href="#">Watch</a></li>
+                <li><a href="watches">Watch</a></li>
             </ul>
         </li>
         <li class="dropdown">
@@ -51,13 +52,13 @@
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="#">All</a></li>
-                <li><a href="#">Amazon</a></li>
-                <li><a href="#">Apple</a></li>
-                <li><a href="#">Lenovo</a></li>
+                <li><a href="all">All</a></li>
+                <li><a href="amazon">Amazon</a></li>
+                <li><a href="apple">Apple</a></li>
+                <li><a href="lenovo">Lenovo</a></li>
             </ul>
         </li>
-        <!--<strong th:text="${category.name}">Category Title</strong>-->
+
     </div>
 
     <div id="products" class="row list-group">
