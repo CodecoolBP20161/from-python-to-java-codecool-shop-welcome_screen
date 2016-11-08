@@ -24,7 +24,7 @@ public class ProductController {
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
 
         Map params = new HashMap<>();
-        params.put("category", productCategoryDataStore.getAll());
+        params.put("category", productCategoryDataStore.find(1));
         params.put("products", productDataStore.getAll());
         return new ModelAndView(params, "product/index");
     }
@@ -33,11 +33,23 @@ public class ProductController {
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
 
         Map params = new HashMap<>();
+        params.put("category", productCategoryDataStore.find(4));
+        params.put("products", productDataStore.getBy(productCategoryDataStore.find(4)));
+        return new ModelAndView(params, "product/index");
+    }
+
+    public static ModelAndView renderPhones(Request req, Response res) {
+        ProductDao productDataStore = ProductDaoMem.getInstance();
+        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+
+        Map params = new HashMap<>();
         params.put("category", productCategoryDataStore.find(3));
         params.put("products", productDataStore.getBy(productCategoryDataStore.find(3)));
         return new ModelAndView(params, "product/index");
     }
-    public static ModelAndView renderPhones(Request req, Response res) {
+
+
+    public static ModelAndView renderTablets(Request req, Response res) {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
 
@@ -46,4 +58,8 @@ public class ProductController {
         params.put("products", productDataStore.getBy(productCategoryDataStore.find(2)));
         return new ModelAndView(params, "product/index");
     }
+
+
+
+
 }
