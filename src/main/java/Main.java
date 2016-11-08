@@ -19,6 +19,7 @@ public class Main {
 
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
         get("/watches", ProductController::renderWatches, new ThymeleafTemplateEngine());
+        get("/phones", ProductController::renderPhones, new ThymeleafTemplateEngine());
         get("/hello", (req, res) -> "Hello World");
 
     }
