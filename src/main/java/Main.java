@@ -22,6 +22,8 @@ public class Main {
         get("/phones", ProductController::renderPhones, new ThymeleafTemplateEngine());
         get("/tablet", ProductController::renderTablets, new ThymeleafTemplateEngine());
         get("/others", ProductController::renderOthers, new ThymeleafTemplateEngine());
+        get("/apple", ProductController::renderApple, new ThymeleafTemplateEngine());
+
         get("/hello", (req, res) -> "Hello World");
 
     }
@@ -65,6 +67,7 @@ public class Main {
         productDataStore.add(new Product("White Board", 129, "USD", "for brainstorming", others, codeshop));
         productDataStore.add(new Product("White Board Maxx 290", 39, "USD", "for drawing tables and classes", others, codeshop));
         productDataStore.add(new Product("White Board Eraser", 115, "USD", "for 'drop' table", others, codeshop));
+        productDataStore.add(new Product("Iphone", 999, "USD", "simple the best", phones, apple));
 
     }
 
