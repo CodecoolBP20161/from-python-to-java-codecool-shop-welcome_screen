@@ -42,11 +42,7 @@
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="/">All</a></li>
-                <li><a href="tablet">Tablet</a></li>
-                <li><a href="phones">Phones</a></li>
-                <li><a href="watches">Watch</a></li>
-                <li><a href="others">Others</a></li>
+                <li th:each="cat : ${categories}"><a th:attr="href='category/' + ${cat.id}" th:text="${cat.name}">Tablet</a></li>
             </ul>
         </li>
         <li class="dropdown">

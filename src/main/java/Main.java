@@ -18,7 +18,7 @@ public class Main {
         populateData();
 
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
-        get("/watches", ProductController::renderWatches, new ThymeleafTemplateEngine());
+        get("/category/:id", ProductController::renderWatches, new ThymeleafTemplateEngine());
         get("/phones", ProductController::renderPhones, new ThymeleafTemplateEngine());
         get("/tablet", ProductController::renderTablets, new ThymeleafTemplateEngine());
         get("/others", ProductController::renderOthers, new ThymeleafTemplateEngine());
