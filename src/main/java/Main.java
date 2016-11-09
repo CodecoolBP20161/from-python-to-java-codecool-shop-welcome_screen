@@ -17,14 +17,14 @@ public class Main {
 
         populateData();
 
-        get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
-        get("/category/:id", ProductController::renderWatches, new ThymeleafTemplateEngine());
-        get("/phones", ProductController::renderPhones, new ThymeleafTemplateEngine());
-        get("/tablet", ProductController::renderTablets, new ThymeleafTemplateEngine());
-        get("/others", ProductController::renderOthers, new ThymeleafTemplateEngine());
-        get("/apple", ProductController::renderApple, new ThymeleafTemplateEngine());
+        get("/", ProductController::renderAll, new ThymeleafTemplateEngine());
+        get("/category/:id", ProductController::renderProducts, new ThymeleafTemplateEngine());
+        get("/supplier/:id", ProductController::renderSupplier, new ThymeleafTemplateEngine());
+//        get("/tablet", ProductController::renderTablets, new ThymeleafTemplateEngine());
+//        get("/others", ProductController::renderOthers, new ThymeleafTemplateEngine());
+//        get("/apple", ProductController::renderApple, new ThymeleafTemplateEngine());
 
-        get("/hello", (req, res) -> "Hello World");
+        //get("/hello", (req, res) -> "Hello World");
 
     }
 
