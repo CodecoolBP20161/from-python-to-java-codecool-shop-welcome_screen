@@ -64,3 +64,19 @@
 {
     padding-top: 50px;
 }
+
+body{
+    background-color: #001f3f ;
+}
+
+
+
+.anyad{
+    background-color: purple;
+    color: purple;
+}
+
+.btn{
+    color: blue;
+
+}
