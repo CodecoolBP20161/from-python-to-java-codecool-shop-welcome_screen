@@ -6,17 +6,29 @@ import java.util.HashMap;
  * Created by kalman on 2016.11.08..
  */
 public class ShoppingCart {
-    HashMap<Product, Integer> lineItems;
+    HashMap <Object, Integer> lineItems;
+    private static ShoppingCart instance = null;
+
 
     public ShoppingCart() {
+        this.lineItems = new HashMap<>();
     }
 
-    public  void add(Product product) {
-        Integer value = lineItems.get(product);
-        if (value != null) {
-            lineItems.put(product, lineItems.get(product) + 1);
-        } else {
+    public HashMap<Object, Integer> getLineItems() {
+        return lineItems;
+    }
+    public static ShoppingCart getInstance() {
+        if (instance == null) {
+            instance = new ShoppingCart();
+        }
+        return instance;
+    }
+
+    public void add(Product product) {
+        if (!lineItems.containsKey(product)) {
             lineItems.put(product, 1);
+        } else {
+            lineItems.put(product, lineItems.get(product) + 1);
         }
     }
 }
