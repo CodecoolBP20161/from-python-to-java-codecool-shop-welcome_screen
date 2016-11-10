@@ -20,12 +20,6 @@ public class Main {
         get("/", ProductController::renderAll, new ThymeleafTemplateEngine());
         get("/category/:id", ProductController::renderProducts, new ThymeleafTemplateEngine());
         get("/supplier/:id", ProductController::renderSupplier, new ThymeleafTemplateEngine());
-//        get("/tablet", ProductController::renderTablets, new ThymeleafTemplateEngine());
-//        get("/others", ProductController::renderOthers, new ThymeleafTemplateEngine());
-//        get("/apple", ProductController::renderApple, new ThymeleafTemplateEngine());
-
-        //get("/hello", (req, res) -> "Hello World");
-
     }
 
     public static void populateData() {
@@ -46,8 +40,8 @@ public class Main {
 
 
         //setting up a new product category
-        ProductCategory all = new ProductCategory("All", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
-        productCategoryDataStore.add(all);
+        //ProductCategory all = new ProductCategory("All", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
+        //productCategoryDataStore.add(all);
         ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
         productCategoryDataStore.add(tablet);
         ProductCategory phones = new ProductCategory("Phones", "Hardware", "Smartphone.");
