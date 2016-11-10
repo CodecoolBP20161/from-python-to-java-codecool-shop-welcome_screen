@@ -36,6 +36,8 @@
 
 <div class="container">
     <div class="well well-sm">
+        <div th:text="${cart}"></div>
+
         <strong th:text="${category.name}">Category Title</strong>
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Products
@@ -51,7 +53,6 @@
             </a>
             <ul class="dropdown-menu">
                 <li th:each="sup : ${suppliers}"><a th:attr="href='/supplier/' + ${sup.id}" th:text="${sup.name}" >Tablet</a></li>
-                <!--<li th:each="cat : ${categories}"><a th:attr="href='/category/' + ${cat.id}" th:text="${cat.name}" >Tablet</a></li>-->
             </ul>
         </li>
 
@@ -70,7 +71,7 @@
                             <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                         </div>
                         <div class="col-xs-12 col-md-6">
-                            <a class="btn btn-success" href="#">Add to cart</a>
+                            <a class="btn btn-success" href="#" th:href="'/addtocart/' + ${prod.getId()}">Add to cart</a>
                         </div>
                     </div>
                 </div>

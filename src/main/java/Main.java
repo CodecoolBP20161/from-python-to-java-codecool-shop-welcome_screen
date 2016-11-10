@@ -21,6 +21,7 @@ public class Main {
         get("/category/:id", ProductController::renderProducts, new ThymeleafTemplateEngine());
         get("/supplier/:id", ProductController::renderSupplier, new ThymeleafTemplateEngine());
         get("/list", ProductController::renderList, new ThymeleafTemplateEngine());
+        get("/addtocart/:id", ProductController::addToCart);
 
     }
 
@@ -29,6 +30,7 @@ public class Main {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+        ShoppingCart Cart = new ShoppingCart();
 
         //setting up a new supplier
         Supplier amazon = new Supplier("Amazon", "Digital content and services");
@@ -42,8 +44,8 @@ public class Main {
 
 
         //setting up a new product category
-        //ProductCategory all = new ProductCategory("All", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
-        //productCategoryDataStore.add(all);
+        ProductCategory all = new ProductCategory("All", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
+        productCategoryDataStore.add(all);
         ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
         productCategoryDataStore.add(tablet);
         ProductCategory phones = new ProductCategory("Phones", "Hardware", "Smartphone.");
