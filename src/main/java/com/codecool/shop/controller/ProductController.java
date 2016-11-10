@@ -23,10 +23,20 @@ public class ProductController {
     public static ModelAndView renderProducts(Request req, Response res) {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        ShoppingCart cart = req.session().attribute("cart");
+        int cartItemSum = 0;
+        try {
+            System.out.println(cart.getLineItems());
+            cartItemSum = cart.lineItemsum();
+        } catch (NullPointerException e) {}
 
         Map params = new HashMap<>();
         params.put("category", productCategoryDataStore.find(1));
         params.put("products", productDataStore.getBy(productCategoryDataStore.find(1)));
+
+        params.put("cart", cartItemSum);
+
+
         return new ModelAndView(params, "product/index");
     }
     public static String addToCart(Request req, Response res) {
@@ -36,13 +46,14 @@ public class ProductController {
             req.session().attribute("cart", Cart);
         }
 
-        req.session().attribute("cart");
         ShoppingCart sessionCart = req.session().attribute("cart");
         ProductDao productDataStore = ProductDaoMem.getInstance();
         Product product = productDataStore.find(productId);
         sessionCart.add(product);
         System.out.println(sessionCart.getLineItems());
-        //System.out.println( req.session() );
+
+        System.out.println(sessionCart.lineItemsum());
+
         //System.out.println((req.session().attribute("cart")).getClass().getName());
 
 

@@ -31,4 +31,12 @@ public class ShoppingCart {
             lineItems.put(product, lineItems.get(product) + 1);
         }
     }
+
+    public Integer lineItemsum() {
+        Integer sum = 0;
+        for (Integer i : this.lineItems.values()) {
+            sum += i;
+        }
+        return sum;
+    }
 }
