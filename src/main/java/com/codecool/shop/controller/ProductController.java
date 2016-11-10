@@ -64,5 +64,14 @@ public class ProductController {
         return new ModelAndView(params, "product/index");
     }
 
+    public static ModelAndView renderList(Request req, Response res) {
+        Map params = new HashMap<>();
+        params.put("products", lineItems);
+        params.put("quantity", );
+        params.put("totalprice", )
+
+        return new ModelAndView(params, "product/list");
+    }
+
 
 }

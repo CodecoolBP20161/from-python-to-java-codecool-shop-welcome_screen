@@ -20,6 +20,8 @@ public class Main {
         get("/", ProductController::renderAll, new ThymeleafTemplateEngine());
         get("/category/:id", ProductController::renderProducts, new ThymeleafTemplateEngine());
         get("/supplier/:id", ProductController::renderSupplier, new ThymeleafTemplateEngine());
+        get("/list", ProductController::renderList, new ThymeleafTemplateEngine());
+
     }
 
     public static void populateData() {
