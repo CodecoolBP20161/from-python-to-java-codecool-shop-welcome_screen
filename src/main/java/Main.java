@@ -43,8 +43,8 @@ public class Main {
 
 
         //setting up a new product category
-        //ProductCategory all = new ProductCategory("All", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
-        //productCategoryDataStore.add(all);
+        ProductCategory all = new ProductCategory("All", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
+        productCategoryDataStore.add(all);
         ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
         productCategoryDataStore.add(tablet);
         ProductCategory phones = new ProductCategory("Phones", "Hardware", "Smartphone.");

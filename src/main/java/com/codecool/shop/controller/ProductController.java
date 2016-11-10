@@ -66,7 +66,7 @@ public class ProductController {
     }
     public static String addToCart(Request req, Response res) {
         int productId = Integer.parseInt(req.params(":id"));
-        if(req.session().attribute("cart") == null){
+        if (req.session().attribute("cart") == null) {
             ShoppingCart Cart = new ShoppingCart();
             req.session().attribute("cart", Cart);
         }
@@ -78,6 +78,7 @@ public class ProductController {
 
         res.redirect("/");
         return null;
+    }
 
 
     public static ModelAndView renderSupplier(Request req, Response res) {
@@ -105,4 +106,5 @@ public class ProductController {
 
 
 }
-}}
+
+
