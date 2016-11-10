@@ -31,16 +31,20 @@ public class ProductController {
     }
     public static String addToCart(Request req, Response res) {
         int productId = Integer.parseInt(req.params(":id"));
-        ShoppingCart Cart = ShoppingCart.getInstance();
+        if(req.session().attribute("cart") == null){
+            ShoppingCart Cart = new ShoppingCart();
+            req.session().attribute("cart", Cart);
+        }
 
+        req.session().attribute("cart");
+        ShoppingCart sessionCart = req.session().attribute("cart");
         ProductDao productDataStore = ProductDaoMem.getInstance();
         Product product = productDataStore.find(productId);
-        Cart.add(product);
-        System.out.println(Cart.getLineItems());
+        sessionCart.add(product);
+        System.out.println(sessionCart.getLineItems());
         //System.out.println( req.session() );
+        //System.out.println((req.session().attribute("cart")).getClass().getName());
 
-        /*req.session().attribute("cart", new String());
-        req.session().attribute("cart");*/
 
         res.redirect("/");
         return null;
