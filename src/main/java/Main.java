@@ -20,6 +20,8 @@ public class Main {
         get("/", ProductController::renderAll, new ThymeleafTemplateEngine());
         get("/category/:id", ProductController::renderProducts, new ThymeleafTemplateEngine());
         get("/supplier/:id", ProductController::renderSupplier, new ThymeleafTemplateEngine());
+        get("/addtocart/:id", ProductController::addToCart);
+
     }
 
     public static void populateData() {
@@ -27,6 +29,7 @@ public class Main {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+        ShoppingCart Cart = new ShoppingCart();
 
         //setting up a new supplier
         Supplier amazon = new Supplier("Amazon", "Digital content and services");

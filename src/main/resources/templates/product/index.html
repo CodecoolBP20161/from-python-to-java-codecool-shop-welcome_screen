@@ -33,6 +33,10 @@
     <a href="/" class="btn btn-default btn-lg btn-block"><strong>Codecool Shop</strong></a>
     </nav>
 
+<div class="jumbotron text-center">
+    <h1>Codecool Shop</h1>
+    <div th:text="${cart}"></div>
+</div>
 
 <div class="container">
     <div class="well well-sm">
@@ -70,7 +74,7 @@
                             <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                         </div>
                         <div class="col-xs-12 col-md-6">
-                            <a class="btn btn-success" href="#">Add to cart</a>
+                            <a class="btn btn-success" href="#" th:href="'/addtocart/' + ${prod.getId()}">Add to cart</a>
                         </div>
                     </div>
                 </div>
