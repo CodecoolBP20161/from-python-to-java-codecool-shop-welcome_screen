@@ -16,6 +16,7 @@ import spark.Request;
 import spark.Response;
 import spark.ModelAndView;
 
+import javax.xml.crypto.Data;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -94,21 +95,23 @@ public class ProductController {
 
 
             Map params = new HashMap<>();
-        params.put("category", supplierDataStore.find(Integer.parseInt(req.params(":id"))));
 
+        params.put("category", supplierDataStore.find(Integer.parseInt(req.params(":id"))));
         params.put("categories", productCategoryDataStore.getAll());
         params.put("suppliers", supplierDataStore.getAll());
         params.put("products", productDataStore.getBy(supplierDataStore.find(Integer.parseInt(req.params(":id")))));
-            params.put("cart", cartItemSum);
+        params.put("cart", cartItemSum);
 
             return new ModelAndView(params, "product/index");
     }
 
     public static ModelAndView renderList(Request req, Response res) {
+        ShoppingCart cart = req.session().attribute("cart");
+
         Map params = new HashMap<>();
-        params.put("products", lineItems);
-        params.put("quantity", );
-        params.put("totalprice", )
+        params.put("cart", cart);
+//        params.put("quantity", );
+//        params.put("totalprice", )
 
         return new ModelAndView(params, "product/list");
     }

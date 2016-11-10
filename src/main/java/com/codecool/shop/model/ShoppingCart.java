@@ -1,6 +1,9 @@
 package com.codecool.shop.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by kalman on 2016.11.08..
@@ -39,4 +42,7 @@ public class ShoppingCart {
         }
         return sum;
     }
-}
+
+
+
+    }
