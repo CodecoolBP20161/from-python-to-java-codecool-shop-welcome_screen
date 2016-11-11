@@ -40,15 +40,24 @@
             <th>Number of items</th>
             <th>Price/Item</th>
             <th>Total Price</th>
+            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td th:each="prod : ${products}" th:text="${prod.name}">Products</td>
-            <td th:each="qu : ${quantity}" th:text="${qu}">Quantity</td>
-            <td th:each="prod : ${products}" th:text="${prod.defaultPrice}">defPrice</td>
-            <td th:each="tp : ${totalprice}" th:text="${tp}">Total Price</td>
+        <tr  th:each="item : ${cart.getLineItems()}">
+            <td th:text="${item.key.name}">Products</td>
+            <td th:text="${item.value}" >Quantity</td>
+            <td th:text="${item.key.defaultPrice} + '$'">defPrice</td>
+            <td th:text="${item.key.defaultPrice}*${item.value}+ '$'">Total Price</td>
+            <td><a class="btn btn-warning btn-md">Delete</a></td>
+
         </tr>
+        <!--<tr th:each="price : ${cart.getTotalPrice()}">-->
+            <!--<td th:text="${price}">Products></td>-->
+
+
+        <!--</tr>-->
+
 
         </tbody>
     </table>
