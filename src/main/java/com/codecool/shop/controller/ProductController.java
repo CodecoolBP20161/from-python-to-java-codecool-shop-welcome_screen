@@ -111,7 +111,7 @@ public class ProductController {
         Map params = new HashMap<>();
         params.put("cart", cart);
 //        params.put("quantity", );
-//        params.put("totalprice", )
+//        params.put("totalprice", cart.getTotalPrice() );
 
         return new ModelAndView(params, "product/list");
     }

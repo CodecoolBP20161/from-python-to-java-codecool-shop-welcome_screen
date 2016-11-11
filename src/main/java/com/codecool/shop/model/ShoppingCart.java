@@ -1,9 +1,7 @@
 package com.codecool.shop.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import javax.print.attribute.HashAttributeSet;
+import java.util.*;
 
 /**
  * Created by kalman on 2016.11.08..
@@ -42,7 +40,50 @@ public class ShoppingCart {
         }
         return sum;
     }
+//    ArrayList<Object> listOfKeys = new ArrayList();
+//    ArrayList<Integer> listOfValues = new ArrayList();
+//
+//    public ArrayList getKeys(){
+//
+//        for (Object key : lineItems.keySet()){
+//            listOfKeys.add(key);
+//
+//        }
+//        return listOfKeys;
+//
+//    }
+//
+//
+//    public ArrayList getValues(){
+//
+//        for (Integer value : lineItems.values()){
+//            listOfValues.add(value);
+//
+//        }
+//        return listOfValues;
+//
+//    }
+//
+//    public ArrayList getTotalPrice(){
+//        ArrayList summtotal = new ArrayList();
+//        int totalprice = 0;
+//
+//        for ( Integer i : listOfValues) {
+//            int key = listOfKeys.get(i).get
+//            int price = listOfValues.get(i) * listOfKeys.get(i);
+//            totalprice+=price;
+//
+//        }
+//
+//            summtotal.add(totalprice);
+//
+//            return summtotal;
+//
+//
+//
+//        }
 
 
 
-    }
+
+}
