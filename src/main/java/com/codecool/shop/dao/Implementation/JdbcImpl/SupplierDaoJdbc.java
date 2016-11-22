@@ -13,31 +13,36 @@ import java.util.List;
 public class SupplierDaoJdbc implements SupplierDao {
 
     private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
-    private static final String DB_USER = "Kalman";
-    private static final String DB_PASSWORD = "jelszo";
+    private static final String DB_USER = "postgres";
+    private static final String DB_PASSWORD = "mimikri45";
+
 
     @Override
-    public void add(Supplier category) {
+    public void add(Supplier supplier) {
+        String query = "INSERT INTO supplier " + "VALUES(" + supplier.getName() + ", " + supplier.getDescription() + ")";
+//        executeQuery(query);
 
     }
 
     @Override
     public Supplier find(int id) {
-        String query = "SELECT * FROM supplier WHERE id ='" + id + "';";
+        String query = "SELECT * FROM supplier WHERE sup_id ='" + id + "';";
         try (Connection connection = getConnection();
              Statement statement =connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query);
+
         ){
             if (resultSet.next()){
-                Supplier result = new Supplier(resultSet.getString("name"),
-                        resultSet.getString("desciption"));
+                Supplier result = new Supplier(resultSet.getInt("sup_id"), resultSet.getString("name"),
+                        resultSet.getString("description"));
                 return result;
             } else {
+                System.out.println("ejjj");
                 return null;
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
         return null;
@@ -46,7 +51,7 @@ public class SupplierDaoJdbc implements SupplierDao {
 
     @Override
     public void remove(int id) {
-        String query = "DELETE FROM supplier WHERE id ='" + id + "';";
+        String query = "DELETE FROM supplier WHERE sup_id ='" + id + "';";
         executeQuery(query);
 
     }
