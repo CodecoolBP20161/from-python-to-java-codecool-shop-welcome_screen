@@ -19,8 +19,16 @@ public class SupplierDaoJdbc implements SupplierDao {
 
     @Override
     public void add(Supplier supplier) {
-        String query = "INSERT INTO supplier " + "VALUES(" + supplier.getName() + ", " + supplier.getDescription() + ")";
-//        executeQuery(query);
+        String query = "INSERT INTO supplier (sup_id, name, description) " +
+                "VALUES ('" + supplier.getId() + "', '" + supplier.getName() + "', '" + supplier.getDescription() + "');";
+        executeQuery(query);
+
+    }
+
+    public void add(String name, String description, int id) {
+        String query = "INSERT INTO supplier (sup_id, name, description) " +
+                "VALUES ('" + id + "', '" + name + "', '" + description + "');";
+        executeQuery(query);
 
     }
 
@@ -37,7 +45,6 @@ public class SupplierDaoJdbc implements SupplierDao {
                         resultSet.getString("description"));
                 return result;
             } else {
-                System.out.println("ejjj");
                 return null;
             }
 
@@ -76,6 +83,7 @@ public class SupplierDaoJdbc implements SupplierDao {
 
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 }
