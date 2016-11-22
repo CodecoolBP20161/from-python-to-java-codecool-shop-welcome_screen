@@ -60,7 +60,7 @@ public class Main {
         productDataStore.add(new Product("Iwatch", 389, "USD", "Instant get...or not?", watches, apple));
         productDataStore.add(new Product("HTC", 115, "USD", "best phone ever", phones, amazon));
         productDataStore.add(new Product("Sound Bowl", 59, "USD", "Ring-Ring", others, codeshop));
-        productDataStore.add(new Product("White Board", 129, "USD", "for brainstorming", others, codeshop));
+        productDataStore.add(new Product("White Board", 129, "USD", "", others, codeshop));
         productDataStore.add(new Product("White Board Maxx 290", 39, "USD", "for drawing tables and classes", others, codeshop));
         productDataStore.add(new Product("White Board Eraser", 115, "USD", "for 'drop' table", others, codeshop));
         productDataStore.add(new Product("Iphone", 999, "USD", "simple the best", phones, apple));
