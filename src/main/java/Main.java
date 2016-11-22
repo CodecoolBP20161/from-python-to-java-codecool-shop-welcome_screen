@@ -2,7 +2,9 @@ import static spark.Spark.*;
 
 import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.dao.*;
-import com.codecool.shop.dao.implementation.*;
+import com.codecool.shop.dao.Implementation.MemImpl.ProductCategoryDaoMem;
+import com.codecool.shop.dao.Implementation.MemImpl.ProductDaoMem;
+import com.codecool.shop.dao.Implementation.MemImpl.SupplierDaoMem;
 import com.codecool.shop.model.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
