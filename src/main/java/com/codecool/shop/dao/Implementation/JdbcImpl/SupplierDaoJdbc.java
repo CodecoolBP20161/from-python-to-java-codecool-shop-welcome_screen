@@ -5,6 +5,7 @@ import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Supplier;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,8 +14,8 @@ import java.util.List;
 public class SupplierDaoJdbc implements SupplierDao {
 
     private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
-    private static final String DB_USER = "postgres";
-    private static final String DB_PASSWORD = "mimikri45";
+    private static final String DB_USER = "Kalman";
+    private static final String DB_PASSWORD = "jelszo";
 
 
     @Override
@@ -25,12 +26,6 @@ public class SupplierDaoJdbc implements SupplierDao {
 
     }
 
-    public void add(String name, String description, int id) {
-        String query = "INSERT INTO supplier (sup_id, name, description) " +
-                "VALUES ('" + id + "', '" + name + "', '" + description + "');";
-        executeQuery(query);
-
-    }
 
     @Override
     public Supplier find(int id) {
@@ -65,7 +60,23 @@ public class SupplierDaoJdbc implements SupplierDao {
 
     @Override
     public List<Supplier> getAll() {
-        return null;
+        String query = "SELECT * FROM supplier;";
+
+        List<Supplier> resultList = new ArrayList<>();
+
+        try (Connection connection = getConnection();
+             Statement statement =connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query);
+        ){
+            while (resultSet.next()){
+                Supplier result = new Supplier(resultSet.getInt("sup_id"), resultSet.getString("name"),
+                        resultSet.getString("description"));
+                resultList.add(result);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return resultList;
     }
 
     private Connection getConnection() throws SQLException {
