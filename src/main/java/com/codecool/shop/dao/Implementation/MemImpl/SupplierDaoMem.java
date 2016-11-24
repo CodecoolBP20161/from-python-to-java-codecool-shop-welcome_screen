@@ -8,7 +8,7 @@ import java.util.List;
 
 public class SupplierDaoMem implements SupplierDao {
 
-    private static List<Supplier> DATA = new ArrayList<>();
+    private List<Supplier> DATA = new ArrayList<>();
     private static SupplierDaoMem instance = null;
 
     /* A private Constructor prevents any other class from instantiating.
@@ -44,7 +44,7 @@ public class SupplierDaoMem implements SupplierDao {
         return DATA;
     }
 
-    public static void setDATA() {
-        SupplierDaoMem.DATA.clear();
+    public void clearDATA() {
+        this.DATA.clear();
     }
 }

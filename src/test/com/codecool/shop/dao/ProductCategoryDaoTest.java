@@ -50,8 +50,6 @@ public class ProductCategoryDaoTest {
 
     @Test
     public void find() throws Exception {
-        System.out.println(productCategory);
-        System.out.println(dao.find(1));
         assertEquals(productCategory, dao.find(1));
 
 

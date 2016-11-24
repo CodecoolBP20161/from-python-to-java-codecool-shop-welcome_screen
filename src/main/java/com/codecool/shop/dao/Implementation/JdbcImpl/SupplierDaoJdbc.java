@@ -17,6 +17,12 @@ public class SupplierDaoJdbc implements SupplierDao {
     private static final String DB_USER = "Kalman";
     private static final String DB_PASSWORD = "jelszo";
 
+    public void clearDATA() {
+        String query = "TRUNCATE table productcategory;";
+        executeQuery(query);
+
+    }
+
 
     @Override
     public void add(Supplier supplier) {
