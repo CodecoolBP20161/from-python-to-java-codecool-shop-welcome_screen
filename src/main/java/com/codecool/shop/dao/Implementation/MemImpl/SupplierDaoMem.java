@@ -43,4 +43,8 @@ public class SupplierDaoMem implements SupplierDao {
     public List<Supplier> getAll() {
         return DATA;
     }
+
+    public static void setDATA() {
+        SupplierDaoMem.DATA.clear();
+    }
 }
