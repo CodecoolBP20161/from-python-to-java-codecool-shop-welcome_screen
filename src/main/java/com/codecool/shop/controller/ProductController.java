@@ -45,9 +45,9 @@ public class ProductController {
     }
 
     public static ModelAndView renderProducts(Request req, Response res) {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+        ProductDao productDataStore = new ProductDaoJdbc();
+        ProductCategoryDao productCategoryDataStore = new ProductCategoryDaoJdbc();
+        SupplierDao supplierDataStore = new SupplierDaoJdbc();
 
         ShoppingCart cart = req.session().attribute("cart");
         int cartItemSum = 0;
@@ -83,9 +83,9 @@ public class ProductController {
 
 
     public static ModelAndView renderSupplier(Request req, Response res) {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        ProductDao productDataStore = new ProductDaoJdbc();
+        ProductCategoryDao productCategoryDataStore = new ProductCategoryDaoJdbc();
+        SupplierDao supplierDataStore = new SupplierDaoJdbc();
 
             ShoppingCart cart = req.session().attribute("cart");
             int cartItemSum = 0;

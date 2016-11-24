@@ -18,8 +18,8 @@ import java.util.List;
 public class ProductDaoJdbc implements ProductDao {
 
     private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
-    private static final String DB_USER = "postgres";
-    private static final String DB_PASSWORD = "patrik";
+    private static final String DB_USER = "Kalman";
+    private static final String DB_PASSWORD = "jelszo";
 
     ProductCategoryDaoJdbc prodcat = new ProductCategoryDaoJdbc();
     SupplierDaoJdbc supp = new SupplierDaoJdbc();
@@ -103,8 +103,8 @@ public class ProductDaoJdbc implements ProductDao {
                 Product product = new Product(
                         resultSet.getString("name"),
                         resultSet.getFloat("defprice"),
-                        resultSet.getString("description"),
                         resultSet.getString("currency"),
+                        resultSet.getString("description"),
                         prodcat.find(resultSet.getInt("prodcat")),
                         supp.find(resultSet.getInt("supplier")));
                 product.setId(resultSet.getInt("product_id"));
@@ -132,8 +132,8 @@ public class ProductDaoJdbc implements ProductDao {
                 Product product = new Product(
                         resultSet.getString("name"),
                         resultSet.getFloat("defprice"),
-                        resultSet.getString("description"),
                         resultSet.getString("currency"),
+                        resultSet.getString("description"),
                         prodcat.find(resultSet.getInt("prodcat")),
                         supp.find(resultSet.getInt("supplier")));
                 resultList.add(product);
@@ -148,7 +148,7 @@ public class ProductDaoJdbc implements ProductDao {
 
         @Override
         public List<Product> getBy(ProductCategory productCategory) {
-        String query = "SELECT * FROM product WHERE productcategory ='" + productCategory.getId() + "';";
+        String query = "SELECT * FROM products WHERE productcategory ='" + productCategory.getId() + "';";
         List<Product> resultList = new ArrayList<>();
 
         try (Connection connection = getConnection();
@@ -159,8 +159,8 @@ public class ProductDaoJdbc implements ProductDao {
                 Product product = new Product(
                         resultSet.getString("name"),
                         resultSet.getFloat("defprice"),
-                        resultSet.getString("description"),
                         resultSet.getString("currency"),
+                        resultSet.getString("description"),
                         prodcat.find(resultSet.getInt("prodcat")),
                         supp.find(resultSet.getInt("supplier")));
                         resultList.add(product);
