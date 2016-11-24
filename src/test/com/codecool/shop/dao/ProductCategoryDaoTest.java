@@ -1,4 +1,7 @@
+package com.codecool.shop.dao;
+
 import com.codecool.shop.dao.Implementation.MemImpl.ProductCategoryDaoMem;
+import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.ProductCategory;
 import org.junit.*;
 import org.mockito.Mock;
@@ -13,12 +16,13 @@ import static org.junit.Assert.assertEquals;
  * Created by seradam on 2016.11.23..
  */
 public class ProductCategoryDaoTest {
-    private ProductCategoryDaoMem dao = ProductCategoryDaoMem.getInstance();
+    private ProductCategoryDao dao = ProductCategoryDaoMem.getInstance();
 
 
-    @Mock
+
      ProductCategory productCategory = new ProductCategory("name", "dep", "desc");
      ProductCategory productCategory2 = new ProductCategory("name2", "dep2", "desc2");
+    ProductCategory productCategory3 = new ProductCategory("name3", "dep3", "desc3");
 
 
     @Before
@@ -31,14 +35,16 @@ public class ProductCategoryDaoTest {
 
     @After
     public void tearDown() throws Exception {
-        dao.setDATA();
+        dao.clearDATA();
 
 
     }
 
     @Test
     public void add() throws Exception {
-        assertEquals(2, dao.getAll().size());
+        productCategory3.setId(3);
+        dao.add(productCategory3);
+        assertEquals(3, dao.getAll().size());
 
     }
 

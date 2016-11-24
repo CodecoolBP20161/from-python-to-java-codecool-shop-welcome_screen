@@ -1,3 +1,5 @@
+package com.codecool.shop.dao;
+
 import static org.junit.Assert.*;
 
 /**
