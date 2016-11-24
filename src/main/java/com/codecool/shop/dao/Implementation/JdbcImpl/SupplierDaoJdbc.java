@@ -14,8 +14,8 @@ import java.util.List;
 public class SupplierDaoJdbc implements SupplierDao {
 
     private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
-    private static final String DB_USER = "postgres";
-    private static final String DB_PASSWORD = "patrik";
+    private static final String DB_USER = "Kalman";
+    private static final String DB_PASSWORD = "jelszo";
 
     public void clearDATA() {
         String query = "TRUNCATE table productcategory;";
@@ -46,7 +46,7 @@ public class SupplierDaoJdbc implements SupplierDao {
         String query = "SELECT * FROM supplier WHERE supplier_id ='" + id + "';";
         try (Connection connection = getConnection();
              Statement statement =connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query);
+             ResultSet resultSet = statement.executeQuery(query)
 
         ){
             if (resultSet.next()){
@@ -80,14 +80,16 @@ public class SupplierDaoJdbc implements SupplierDao {
 
         try (Connection connection = getConnection();
              Statement statement =connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query);
+             ResultSet resultSet = statement.executeQuery(query)
         ){
             while (resultSet.next()){
                 Supplier result = new Supplier(
+                        resultSet.getInt("supplier_id"),
                         resultSet.getString("name"),
                         resultSet.getString("description"));
                 resultList.add(result);
             }
+            return resultList;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

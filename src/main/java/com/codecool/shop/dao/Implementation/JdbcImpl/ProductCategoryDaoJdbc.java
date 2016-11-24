@@ -1,9 +1,7 @@
 package com.codecool.shop.dao.Implementation.JdbcImpl;
 
-import com.codecool.shop.dao.Implementation.MemImpl.ProductCategoryDaoMem;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.ProductCategory;
-import com.sun.org.apache.xerces.internal.util.Status;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,8 +13,8 @@ import java.util.List;
 public class ProductCategoryDaoJdbc implements ProductCategoryDao {
 
     private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
-    private static final String DB_USER = "postgres";
-    private static final String DB_PASSWORD = "patrik";
+    private static final String DB_USER = "Kalman";
+    private static final String DB_PASSWORD = "jelszo";
 
     public void clearDATA() {
         String query = "TRUNCATE table productcategory;";
@@ -97,7 +95,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
                 actProdCat.setId(resultSet.getInt("productcategory_id"));
                 resultList.add(actProdCat);
             }
-
+            return resultList;
 
         } catch (SQLException e) {
             e.printStackTrace();
