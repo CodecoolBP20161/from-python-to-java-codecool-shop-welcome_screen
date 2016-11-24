@@ -1,9 +1,7 @@
 package com.codecool.shop.dao.Implementation.JdbcImpl;
 
-import com.codecool.shop.dao.Implementation.MemImpl.ProductCategoryDaoMem;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.ProductCategory;
-import com.sun.org.apache.xerces.internal.util.Status;
 
 import java.sql.*;
 import java.util.ArrayList;

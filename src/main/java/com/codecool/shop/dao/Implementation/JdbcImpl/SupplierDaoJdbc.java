@@ -84,6 +84,7 @@ public class SupplierDaoJdbc implements SupplierDao {
         ){
             while (resultSet.next()){
                 Supplier result = new Supplier(
+                        resultSet.getInt("supplier_id"),
                         resultSet.getString("name"),
                         resultSet.getString("description"));
                 resultList.add(result);
