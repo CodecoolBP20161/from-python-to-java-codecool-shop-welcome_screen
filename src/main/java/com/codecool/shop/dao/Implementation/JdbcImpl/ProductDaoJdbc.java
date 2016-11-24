@@ -107,6 +107,7 @@ public class ProductDaoJdbc implements ProductDao {
                         resultSet.getString("currency"),
                         prodcat.find(resultSet.getInt("prodcat")),
                         supp.find(resultSet.getInt("supplier")));
+                product.setId(resultSet.getInt("product_id"));
                 resultList.add(product);
             }
         } catch (SQLException e) {
@@ -114,7 +115,7 @@ public class ProductDaoJdbc implements ProductDao {
         }
 
 
-        return null;
+        return resultList;
     }
 
 

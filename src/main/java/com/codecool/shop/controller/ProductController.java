@@ -1,6 +1,9 @@
 package com.codecool.shop.controller;
 
 
+import com.codecool.shop.dao.Implementation.JdbcImpl.ProductCategoryDaoJdbc;
+import com.codecool.shop.dao.Implementation.JdbcImpl.ProductDaoJdbc;
+import com.codecool.shop.dao.Implementation.JdbcImpl.SupplierDaoJdbc;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
@@ -20,9 +23,9 @@ import java.util.Map;
 public class ProductController {
 
     public static ModelAndView renderAll(Request req, Response res) {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+        ProductDao productDataStore = new ProductDaoJdbc();
+        ProductCategoryDao productCategoryDataStore = new ProductCategoryDaoJdbc();
+        SupplierDao supplierDataStore = new SupplierDaoJdbc();
 
         ShoppingCart cart = req.session().attribute("cart");
         int cartItemSum = 0;
