@@ -14,8 +14,8 @@ import java.util.List;
 public class SupplierDaoJdbc implements SupplierDao {
 
     private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
-    private static final String DB_USER = "Kalman";
-    private static final String DB_PASSWORD = "jelszo";
+    private static final String DB_USER = "postgres";
+    private static final String DB_PASSWORD = "patrik";
 
     public void clearDATA() {
         String query = "TRUNCATE table productcategory;";
@@ -26,23 +26,31 @@ public class SupplierDaoJdbc implements SupplierDao {
 
     @Override
     public void add(Supplier supplier) {
-        String query = "INSERT INTO supplier (sup_id, name, description) " +
-                "VALUES ('" + supplier.getId() + "', '" + supplier.getName() + "', '" + supplier.getDescription() + "');";
-        executeQuery(query);
+
+        try {
+            PreparedStatement preparedStatement = getConnection().prepareStatement(
+                    "INSERT INTO supplier (name, description) VALUES ( ?, ?)");
+            preparedStatement.setString(1, supplier.getName());
+            preparedStatement.setString(2, supplier.getDescription());
+            preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
 
     @Override
     public Supplier find(int id) {
-        String query = "SELECT * FROM supplier WHERE sup_id ='" + id + "';";
+        String query = "SELECT * FROM supplier WHERE supplier_id ='" + id + "';";
         try (Connection connection = getConnection();
              Statement statement =connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query);
 
         ){
             if (resultSet.next()){
-                Supplier result = new Supplier(resultSet.getInt("sup_id"), resultSet.getString("name"),
+                Supplier result = new Supplier(resultSet.getInt("supplier_id"), resultSet.getString("name"),
                         resultSet.getString("description"));
                 return result;
             } else {
@@ -59,7 +67,7 @@ public class SupplierDaoJdbc implements SupplierDao {
 
     @Override
     public void remove(int id) {
-        String query = "DELETE FROM supplier WHERE sup_id ='" + id + "';";
+        String query = "DELETE FROM supplier WHERE supplier_id ='" + id + "';";
         executeQuery(query);
 
     }
@@ -75,7 +83,8 @@ public class SupplierDaoJdbc implements SupplierDao {
              ResultSet resultSet = statement.executeQuery(query);
         ){
             while (resultSet.next()){
-                Supplier result = new Supplier(resultSet.getInt("sup_id"), resultSet.getString("name"),
+                Supplier result = new Supplier(
+                        resultSet.getString("name"),
                         resultSet.getString("description"));
                 resultList.add(result);
             }

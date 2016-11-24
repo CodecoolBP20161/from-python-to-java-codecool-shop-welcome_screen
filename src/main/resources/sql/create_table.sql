@@ -23,7 +23,7 @@ CREATE TABLE products
 product_id SERIAL PRIMARY KEY ,
 name varchar(50),
 description varchar(100),
-defPrice INTEGER,
+defPrice FLOAT,
 currency VARCHAR(10),
 supplier INTEGER,
 prodcat INTEGER,
