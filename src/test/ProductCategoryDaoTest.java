@@ -23,24 +23,31 @@ public class ProductCategoryDaoTest {
 
     @Before
     public void setUp() throws Exception {
-
         productCategory.setId(1);
         productCategory2.setId(2);
+        dao.add(productCategory);
+        dao.add(productCategory2);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        dao.setDATA();
+
 
     }
 
-
     @Test
     public void add() throws Exception {
-        dao.add(productCategory);
-        dao.add(productCategory2);
-        assertEquals(3, dao.getAll().size());
+        assertEquals(2, dao.getAll().size());
 
     }
 
     @Test
     public void find() throws Exception {
-        assertEquals(productCategory.getId(), dao.find(1).getId());
+        System.out.println(productCategory);
+        System.out.println(dao.find(1));
+        assertEquals(productCategory, dao.find(1));
+
 
     }
 
@@ -55,8 +62,6 @@ public class ProductCategoryDaoTest {
         List<ProductCategory> exp = new ArrayList();
         exp.add(productCategory);
         exp.add(productCategory2);
-        dao.add(productCategory);
-        dao.add(productCategory2);
         List<ProductCategory> actual = dao.getAll();
         assertEquals(exp, actual);
     }
