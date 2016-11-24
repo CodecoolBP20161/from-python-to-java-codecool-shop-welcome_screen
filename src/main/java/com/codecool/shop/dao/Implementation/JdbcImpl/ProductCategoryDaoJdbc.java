@@ -1,5 +1,6 @@
 package com.codecool.shop.dao.Implementation.JdbcImpl;
 
+import com.codecool.shop.dao.Implementation.MemImpl.ProductCategoryDaoMem;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.model.ProductCategory;
 import com.sun.org.apache.xerces.internal.util.Status;
@@ -17,17 +18,21 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
     private static final String DB_USER = "postgres";
     private static final String DB_PASSWORD = "patrik";
 
+    public void clearDATA() {
+        String query = "TRUNCATE table productcategory;";
+        executeQuery(query);
+
+    }
 
     @Override
     public void add(ProductCategory category) {
 
         try {
             PreparedStatement preparedStatement = getConnection().prepareStatement(
-                    "INSERT INTO productcategory (id,name, description, department) VALUES (?, ?, ?, ?)");
-            preparedStatement.setString(1, String.valueOf(category.getId()));
-            preparedStatement.setString(2, category.getName());
-            preparedStatement.setString(3, category.getDescription());
-            preparedStatement.setString(4, category.getDepartment());
+                    "INSERT INTO productcategory (name, description, department) VALUES ( ?, ?, ?)");
+            preparedStatement.setString(1, category.getName());
+            preparedStatement.setString(2, category.getDescription());
+            preparedStatement.setString(3, category.getDepartment());
             preparedStatement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -38,7 +43,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
     @Override
     public ProductCategory find(int id) {
 
-        String query = "SELECT * FROM productcategory WHERE id ='" + id + "';";
+        String query = "SELECT * FROM productcategory WHERE productcategory_id ='" + id + "';";
 
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement();
@@ -47,8 +52,9 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
             if (resultSet.next()) {
                 ProductCategory result = new ProductCategory(
                         resultSet.getString("name"),
-                        resultSet.getString("description"),
-                        resultSet.getString("department"));
+                        resultSet.getString("department"),
+                        resultSet.getString("description"));
+                result.setId(resultSet.getInt("productcategory_id"));
                 return result;
             } else {
                 return null;
@@ -65,7 +71,7 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
     @Override
     public void remove(int id) {
 
-        String query = "DELETE FROM productcategory WHERE id = '" + id +"';";
+        String query = "DELETE FROM productcategory WHERE productcategory_id = '" + id + "'; ";
         executeQuery(query);
 
     }
@@ -86,8 +92,9 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
             while (resultSet.next()) {
                 ProductCategory actProdCat = new ProductCategory(
                         resultSet.getString("name"),
-                        resultSet.getString("description"),
-                        resultSet.getString("department"));
+                        resultSet.getString("department"),
+                        resultSet.getString("description"));
+                actProdCat.setId(resultSet.getInt("productcategory_id"));
                 resultList.add(actProdCat);
             }
 
