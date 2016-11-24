@@ -2,11 +2,16 @@ import static spark.Spark.*;
 
 import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.dao.*;
+import com.codecool.shop.dao.Implementation.JdbcImpl.ProductCategoryDaoJdbc;
+import com.codecool.shop.dao.Implementation.JdbcImpl.ProductDaoJdbc;
 import com.codecool.shop.dao.Implementation.MemImpl.ProductCategoryDaoMem;
 import com.codecool.shop.dao.Implementation.MemImpl.ProductDaoMem;
 import com.codecool.shop.dao.Implementation.MemImpl.SupplierDaoMem;
 import com.codecool.shop.model.*;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -66,8 +71,5 @@ public class Main {
         productDataStore.add(new Product("White Board Maxx 290", 39, "USD", "for drawing tables and classes", others, codeshop));
         productDataStore.add(new Product("White Board Eraser", 115, "USD", "for 'drop' table", others, codeshop));
         productDataStore.add(new Product("Iphone", 999, "USD", "simple the best", phones, apple));
-
     }
-
-
 }
