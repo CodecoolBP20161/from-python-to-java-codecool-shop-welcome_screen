@@ -22,6 +22,7 @@ import java.util.Map;
 
 public class ProductController {
 
+
     public static ModelAndView renderAll(Request req, Response res) {
         ProductDao productDataStore = new ProductDaoJdbc();
         ProductCategoryDao productCategoryDataStore = new ProductCategoryDaoJdbc();
@@ -73,7 +74,7 @@ public class ProductController {
         }
 
         ShoppingCart sessionCart = req.session().attribute("cart");
-        ProductDao productDataStore = ProductDaoMem.getInstance();
+        ProductDao productDataStore = new ProductDaoJdbc();
         Product product = productDataStore.find(productId);
         sessionCart.add(product);
 

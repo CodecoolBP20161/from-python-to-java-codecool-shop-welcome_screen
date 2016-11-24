@@ -1,15 +1,12 @@
 package com.codecool.shop.dao.Implementation.JdbcImpl;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
-import javax.xml.crypto.KeySelectorException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -136,19 +133,19 @@ public class ProductDaoJdbc implements ProductDao {
                         resultSet.getString("description"),
                         prodcat.find(resultSet.getInt("prodcat")),
                         supp.find(resultSet.getInt("supplier")));
+                product.setId(resultSet.getInt("product_id"));
                 resultList.add(product);
             }
-            return null;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return resultList;
     }
 
 
         @Override
         public List<Product> getBy(ProductCategory productCategory) {
-        String query = "SELECT * FROM products WHERE productcategory ='" + productCategory.getId() + "';";
+        String query = "SELECT * FROM products WHERE prodcat ='" + productCategory.getId() + "';";
         List<Product> resultList = new ArrayList<>();
 
         try (Connection connection = getConnection();
@@ -163,12 +160,13 @@ public class ProductDaoJdbc implements ProductDao {
                         resultSet.getString("description"),
                         prodcat.find(resultSet.getInt("prodcat")),
                         supp.find(resultSet.getInt("supplier")));
+                        product.setId(resultSet.getInt("product_id"));
                         resultList.add(product);
             }
+            return resultList;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 
