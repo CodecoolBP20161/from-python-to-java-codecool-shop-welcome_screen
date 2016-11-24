@@ -18,6 +18,11 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
     private static final String DB_USER = "postgres";
     private static final String DB_PASSWORD = "patrik";
 
+    public void clearDATA() {
+        String query = "TRUNCATE table productcategory;";
+        executeQuery(query);
+
+    }
 
     @Override
     public void add(ProductCategory category) {
