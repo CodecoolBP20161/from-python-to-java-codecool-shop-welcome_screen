@@ -1,3 +1,5 @@
+package com.codecool.shop.dao;
+
 import com.codecool.shop.dao.Implementation.MemImpl.ProductCategoryDaoMem;
 import com.codecool.shop.model.ProductCategory;
 import org.junit.*;
