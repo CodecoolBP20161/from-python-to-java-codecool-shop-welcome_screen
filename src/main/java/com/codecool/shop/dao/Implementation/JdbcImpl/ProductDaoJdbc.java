@@ -19,7 +19,7 @@ public class ProductDaoJdbc implements ProductDao {
 
     private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
     private static final String DB_USER = "postgres";
-    private static final String DB_PASSWORD = "mccartney42";
+    private static final String DB_PASSWORD = "patrik";
 
     ProductCategoryDaoJdbc prodcat = new ProductCategoryDaoJdbc();
     SupplierDaoJdbc supp = new SupplierDaoJdbc();
@@ -33,10 +33,10 @@ public class ProductDaoJdbc implements ProductDao {
                     "INSERT INTO products (name, description, defprice, currency, supplier, prodcat) VALUES (?, ?, ?, ?, ?, ?)");
             preparedStatement.setString(1, product.getName());
             preparedStatement.setString(2, product.getDescription());
-            preparedStatement.setString(3, String.valueOf(product.getDefaultPrice()));
+            preparedStatement.setFloat(3, product.getDefaultPrice());
             preparedStatement.setString(4, String.valueOf(product.getDefaultCurrency()));
-            preparedStatement.setString(5, String.valueOf(product.getSupplier().getId()));
-            preparedStatement.setString(6, String.valueOf(product.getProductCategory().getId()));
+            preparedStatement.setInt(5, product.getSupplier().getId());
+            preparedStatement.setInt(6, product.getProductCategory().getId());
             preparedStatement.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -49,12 +49,12 @@ public class ProductDaoJdbc implements ProductDao {
     public Product find(int id) {
 
 
-        String query = "SELECT products.id, products.name, products.description, products.defprice, products.currency," +
-                "supplier.id AS supplier, productcategory.id AS prodcat" +
+        String query = "SELECT products.product_id, products.name, products.description, products.defprice, products.currency," +
+                "supplier.supplier_id AS supplier, productcategory.productcategory_id AS prodcat" +
                 " FROM products " +
-                " FULL OUTER JOIN supplier ON products.supplier = supplier.id" +
-                " FULL OUTER JOIN productcategory ON products.prodcat = productcategory.id " +
-                " WHERE id ='" + id + "';";
+                " FULL OUTER JOIN supplier ON products.supplier = supplier.supplier_id" +
+                " FULL OUTER JOIN productcategory ON products.prodcat = productcategory.productcategory_id " +
+                " WHERE product_id ='" + id + "';";
 
 
 
@@ -66,10 +66,11 @@ public class ProductDaoJdbc implements ProductDao {
                 Product result = new Product(
                         resultSet.getString("name"),
                         resultSet.getFloat("defprice"),
-                        resultSet.getString("description"),
                         resultSet.getString("currency"),
+                        resultSet.getString("description"),
                         prodcat.find(resultSet.getInt("prodcat")),
                         supp.find(resultSet.getInt("supplier")));
+                result.setId(resultSet.getInt("product_id"));
                 return result;
             } else {
                 return null;
