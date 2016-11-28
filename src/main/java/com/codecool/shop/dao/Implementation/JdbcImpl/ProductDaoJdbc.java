@@ -15,8 +15,8 @@ import java.util.List;
 public class ProductDaoJdbc implements ProductDao {
 
     private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
-    private static final String DB_USER = "Kalman";
-    private static final String DB_PASSWORD = "jelszo";
+    private static final String DB_USER = "postgres";
+    private static final String DB_PASSWORD = "patrik";
 
     ProductCategoryDaoJdbc prodcat = new ProductCategoryDaoJdbc();
     SupplierDaoJdbc supp = new SupplierDaoJdbc();
