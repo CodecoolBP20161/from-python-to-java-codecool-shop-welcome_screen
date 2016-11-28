@@ -1,31 +1,28 @@
 package com.codecool.shop.controller;
 
+
+import com.codecool.shop.dao.Implementation.JdbcImpl.ProductCategoryDaoJdbc;
+import com.codecool.shop.dao.Implementation.JdbcImpl.ProductDaoJdbc;
+import com.codecool.shop.dao.Implementation.JdbcImpl.SupplierDaoJdbc;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
-import com.codecool.shop.model.BaseModel;
 import com.codecool.shop.model.Product;
-import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.ShoppingCart;
-import com.codecool.shop.model.Supplier;
-
+import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
-import spark.ModelAndView;
 
-import javax.xml.crypto.Data;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ProductController {
 
+
     public static ModelAndView renderAll(Request req, Response res) {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+        ProductDao productDataStore = new ProductDaoJdbc();
+        ProductCategoryDao productCategoryDataStore = new ProductCategoryDaoJdbc();
+        SupplierDao supplierDataStore = new SupplierDaoJdbc();
 
         ShoppingCart cart = req.session().attribute("cart");
         int cartItemSum = 0;
@@ -45,9 +42,9 @@ public class ProductController {
     }
 
     public static ModelAndView renderProducts(Request req, Response res) {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+        ProductDao productDataStore = new ProductDaoJdbc();
+        ProductCategoryDao productCategoryDataStore = new ProductCategoryDaoJdbc();
+        SupplierDao supplierDataStore = new SupplierDaoJdbc();
 
         ShoppingCart cart = req.session().attribute("cart");
         int cartItemSum = 0;
@@ -73,7 +70,7 @@ public class ProductController {
         }
 
         ShoppingCart sessionCart = req.session().attribute("cart");
-        ProductDao productDataStore = ProductDaoMem.getInstance();
+        ProductDao productDataStore = new ProductDaoJdbc();
         Product product = productDataStore.find(productId);
         sessionCart.add(product);
 
@@ -83,9 +80,9 @@ public class ProductController {
 
 
     public static ModelAndView renderSupplier(Request req, Response res) {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+        ProductDao productDataStore = new ProductDaoJdbc();
+        ProductCategoryDao productCategoryDataStore = new ProductCategoryDaoJdbc();
+        SupplierDao supplierDataStore = new SupplierDaoJdbc();
 
             ShoppingCart cart = req.session().attribute("cart");
             int cartItemSum = 0;

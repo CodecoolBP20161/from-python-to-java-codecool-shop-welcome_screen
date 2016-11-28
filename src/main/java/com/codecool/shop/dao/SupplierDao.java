@@ -9,6 +9,7 @@ public interface SupplierDao {
     void add(Supplier category);
     Supplier find(int id);
     void remove(int id);
+    void clearDATA();
 
     List<Supplier> getAll();
 }
