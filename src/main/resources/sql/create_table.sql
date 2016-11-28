@@ -45,6 +45,7 @@ INSERT INTO productcategory( name,description, department) VALUES('Others', 'Bes
 
 INSERT INTO products( name, description, defPrice, currency, supplier, prodcat) VALUES('Amazon Fire', 'Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.', 49,'USD',2,1);
 INSERT INTO products( name, description, defPrice, currency, supplier, prodcat) VALUES('Lenovo IdeaPad Miix 700', 'Keyboard cover is included. Fanless Core m5 processor. Full-size USB ports. Adjustable kickstand.', 479,'USD',3,1);
+INSERT INTO products( name, description, defPrice, currency, supplier, prodcat) VALUES('Amazon HD8', 'Best ever ever', 89,'USD',2,1);
 INSERT INTO products( name, description, defPrice, currency, supplier, prodcat) VALUES('IWatch', 'Instant get...or not?', 389,'USD',1,3);
 INSERT INTO products( name, description, defPrice, currency, supplier, prodcat) VALUES('HTC', ' best phone ever', 115,'USD',2,2);
 INSERT INTO products( name, description, defPrice, currency, supplier, prodcat) VALUES('Sound Bowl', 'Ring-Ring', 59,'USD',4,4);
