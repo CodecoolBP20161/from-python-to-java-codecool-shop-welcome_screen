@@ -25,17 +25,8 @@ public class ProductController {
 
     public static ModelAndView renderAll(Request req, Response res) {
 
-        ShoppingCart cart = req.session().attribute("cart");
-        int cartItemSum = 0;
-        try {
-            cartItemSum = cart.lineItemsum();
-        } catch (NullPointerException e) {}
-
-        if (req.session().attribute("cart") == null) {
-            ShoppingCart Cart = new ShoppingCart();
-            req.session().attribute("cart", Cart);
-        }
-
+        ShoppingCart cart = ProductController.getCart(req);
+        int cartItemSum = ProductController.getLineItemSum(req);
 
         Map params = new HashMap<>();
         params.put("category", productCategoryDataStore.find(1));
@@ -49,27 +40,14 @@ public class ProductController {
 
     public static ModelAndView renderProducts(Request req, Response res) {
 
-        ShoppingCart cart = req.session().attribute("cart");
-        int cartItemSum = 0;
-        try {
-            cartItemSum = cart.lineItemsum();
-        } catch (NullPointerException e) {}
-
-        Map params = new HashMap<>();
-        params.put("category", productCategoryDataStore.find(Integer.parseInt(req.params(":id"))));
-        params.put("categories", productCategoryDataStore.getAll());
-        params.put("suppliers", supplierDataStore.getAll());
-        params.put("products", productDataStore.getBy(productCategoryDataStore.find(Integer.parseInt(req.params(":id")))));
-        params.put("cart", cartItemSum);
-
+        Map params = ProductController.createParams(req);
 
         return new ModelAndView(params, "product/index");
     }
     public static String addToCart(Request req, Response res) {
         int productId = Integer.parseInt(req.params(":id"));
 
-        ShoppingCart sessionCart = req.session().attribute("cart");
-        ProductDao productDataStore = new ProductDaoJdbc();
+        ShoppingCart sessionCart = ProductController.getCart(req);
         Product product = productDataStore.find(productId);
         sessionCart.add(product);
 
@@ -80,36 +58,52 @@ public class ProductController {
 
     public static ModelAndView renderSupplier(Request req, Response res) {
 
-            ShoppingCart cart = req.session().attribute("cart");
-            int cartItemSum = 0;
-            try {
-                cartItemSum = cart.lineItemsum();
-            } catch (NullPointerException e) {}
-
-
-            Map params = new HashMap<>();
-
-        params.put("category", supplierDataStore.find(Integer.parseInt(req.params(":id"))));
-        params.put("categories", productCategoryDataStore.getAll());
-        params.put("suppliers", supplierDataStore.getAll());
-        params.put("products", productDataStore.getBy(supplierDataStore.find(Integer.parseInt(req.params(":id")))));
-        params.put("cart", cartItemSum);
+            Map params = ProductController.createParams(req);
 
             return new ModelAndView(params, "product/index");
     }
 
     public static ModelAndView renderList(Request req, Response res) {
-        ShoppingCart cart = req.session().attribute("cart");
+        ShoppingCart cart = ProductController.getCart(req);
 
         Map params = new HashMap<>();
         params.put("cart", cart);
-//        params.put("quantity", );
-//        params.put("totalprice", cart.getTotalPrice() );
 
         return new ModelAndView(params, "product/list");
     }
 
+    public static Map createParams(Request req) {
 
+        Map params = new HashMap<>();
+        int cartItemSum = ProductController.getLineItemSum(req);
+
+        params.put("category", productCategoryDataStore.find(Integer.parseInt(req.params(":id"))));
+        params.put("categories", productCategoryDataStore.getAll());
+        params.put("suppliers", supplierDataStore.getAll());
+        params.put("products", productDataStore.getBy(productCategoryDataStore.find(Integer.parseInt(req.params(":id")))));
+        params.put("cart", cartItemSum);
+
+        return params;
+    }
+
+    public static ShoppingCart getCart(Request req) {
+        if (req.session().attribute("cart") == null) {
+            ShoppingCart cart = new ShoppingCart();
+            req.session().attribute("cart", cart);
+        }
+        ShoppingCart cart = req.session().attribute("cart");
+
+        return cart;
+    }
+
+    public static int getLineItemSum(Request req) {
+
+        ShoppingCart cart = ProductController.getCart(req);
+        int cartItemSum = 0;
+        cartItemSum = cart.lineItemsum();
+
+        return cartItemSum;
+    }
 }
 
 
