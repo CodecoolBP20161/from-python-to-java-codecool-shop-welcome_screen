@@ -41,6 +41,9 @@
             <th>Price/Item</th>
             <th>Total Price</th>
             <th>Delete</th>
+            <th>Add</th>
+            <th>Remove</th>
+
         </tr>
         </thead>
         <tbody>
@@ -50,6 +53,8 @@
             <td th:text="${item.key.defaultPrice} + '$'">defPrice</td>
             <td th:text="${item.key.defaultPrice}*${item.value}+ '$'">Total Price</td>
             <td><a class="btn btn-warning btn-md">Delete</a></td>
+            <td><a class="btn btn-warning btn-md">+</a></td>
+            <td><a class="btn btn-warning btn-md">-</a></td>
 
         </tr>
         <!--<tr th:each="price : ${cart.getTotalPrice()}">-->
