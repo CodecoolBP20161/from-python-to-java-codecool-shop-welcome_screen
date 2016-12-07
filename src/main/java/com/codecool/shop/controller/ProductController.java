@@ -18,17 +18,23 @@ import java.util.Map;
 
 public class ProductController {
 
+    static ProductDao productDataStore = new ProductDaoJdbc();
+    static ProductCategoryDao productCategoryDataStore = new ProductCategoryDaoJdbc();
+    static SupplierDao supplierDataStore = new SupplierDaoJdbc();
+
 
     public static ModelAndView renderAll(Request req, Response res) {
-        ProductDao productDataStore = new ProductDaoJdbc();
-        ProductCategoryDao productCategoryDataStore = new ProductCategoryDaoJdbc();
-        SupplierDao supplierDataStore = new SupplierDaoJdbc();
 
         ShoppingCart cart = req.session().attribute("cart");
         int cartItemSum = 0;
         try {
             cartItemSum = cart.lineItemsum();
         } catch (NullPointerException e) {}
+
+        if (req.session().attribute("cart") == null) {
+            ShoppingCart Cart = new ShoppingCart();
+            req.session().attribute("cart", Cart);
+        }
 
 
         Map params = new HashMap<>();
@@ -42,9 +48,6 @@ public class ProductController {
     }
 
     public static ModelAndView renderProducts(Request req, Response res) {
-        ProductDao productDataStore = new ProductDaoJdbc();
-        ProductCategoryDao productCategoryDataStore = new ProductCategoryDaoJdbc();
-        SupplierDao supplierDataStore = new SupplierDaoJdbc();
 
         ShoppingCart cart = req.session().attribute("cart");
         int cartItemSum = 0;
@@ -64,10 +67,6 @@ public class ProductController {
     }
     public static String addToCart(Request req, Response res) {
         int productId = Integer.parseInt(req.params(":id"));
-        if (req.session().attribute("cart") == null) {
-            ShoppingCart Cart = new ShoppingCart();
-            req.session().attribute("cart", Cart);
-        }
 
         ShoppingCart sessionCart = req.session().attribute("cart");
         ProductDao productDataStore = new ProductDaoJdbc();
@@ -80,9 +79,6 @@ public class ProductController {
 
 
     public static ModelAndView renderSupplier(Request req, Response res) {
-        ProductDao productDataStore = new ProductDaoJdbc();
-        ProductCategoryDao productCategoryDataStore = new ProductCategoryDaoJdbc();
-        SupplierDao supplierDataStore = new SupplierDaoJdbc();
 
             ShoppingCart cart = req.session().attribute("cart");
             int cartItemSum = 0;
