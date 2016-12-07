@@ -1,6 +1,7 @@
 package com.codecool.shop.dao.Implementation.JdbcImpl;
 
 
+import com.codecool.shop.controller.ConfigController;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Supplier;
 
@@ -13,9 +14,11 @@ import java.util.List;
  */
 public class SupplierDaoJdbc implements SupplierDao {
 
-    private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
-    private static final String DB_USER = "postgres";
-    private static final String DB_PASSWORD = "patrik";
+    ConfigController controller = new ConfigController();
+
+    private String DATABASE = controller.getPropValues("database");
+    private String DB_USER = controller.getPropValues("user");
+    private String DB_PASSWORD = controller.getPropValues("password");
 
     public void clearDATA() {
         String query = "TRUNCATE table productcategory;";
