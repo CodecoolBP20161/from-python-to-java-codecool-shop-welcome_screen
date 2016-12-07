@@ -40,50 +40,24 @@ public class ShoppingCart {
         }
         return sum;
     }
-//    ArrayList<Object> listOfKeys = new ArrayList();
-//    ArrayList<Integer> listOfValues = new ArrayList();
-//
-//    public ArrayList getKeys(){
-//
-//        for (Object key : lineItems.keySet()){
-//            listOfKeys.add(key);
-//
-//        }
-//        return listOfKeys;
-//
-//    }
-//
-//
-//    public ArrayList getValues(){
-//
-//        for (Integer value : lineItems.values()){
-//            listOfValues.add(value);
-//
-//        }
-//        return listOfValues;
-//
-//    }
-//
-//    public ArrayList getTotalPrice(){
-//        ArrayList summtotal = new ArrayList();
-//        int totalprice = 0;
-//
-//        for ( Integer i : listOfValues) {
-//            int key = listOfKeys.get(i).get
-//            int price = listOfValues.get(i) * listOfKeys.get(i);
-//            totalprice+=price;
-//
-//        }
-//
-//            summtotal.add(totalprice);
-//
-//            return summtotal;
-//
-//
-//
-//        }
+
+    public float getTotalPrice() {
+
+        float totalprice = 0;
+
+        for(Map.Entry<Object, Integer> entry : lineItems.entrySet()) {
+            Product key = (Product) entry.getKey();
+            Integer value = entry.getValue();
+            totalprice += key.getDefaultPrice()*value;
+        }
+
+        return totalprice;
+
+
+    }
 
 
 
 
-}
+
+    }
