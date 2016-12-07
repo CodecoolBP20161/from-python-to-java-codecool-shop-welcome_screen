@@ -1,5 +1,6 @@
 package com.codecool.shop.dao.Implementation.JdbcImpl;
 
+import com.codecool.shop.controller.ConfigController;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
@@ -14,9 +15,11 @@ import java.util.List;
  */
 public class ProductDaoJdbc implements ProductDao {
 
-    private static final String DATABASE = "jdbc:postgresql://localhost:5432/codecoolshop";
-    private static final String DB_USER = "postgres";
-    private static final String DB_PASSWORD = "patrik";
+    ConfigController controller = new ConfigController();
+
+    private String DATABASE = controller.getPropValues("database");
+    private String DB_USER = controller.getPropValues("user");
+    private String DB_PASSWORD = controller.getPropValues("password");
 
     ProductCategoryDaoJdbc prodcat = new ProductCategoryDaoJdbc();
     SupplierDaoJdbc supp = new SupplierDaoJdbc();
