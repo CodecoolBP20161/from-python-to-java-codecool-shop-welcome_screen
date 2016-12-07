@@ -18,14 +18,12 @@ import java.util.Map;
 
 public class ProductController {
 
-    static ProductDao productDataStore = new ProductDaoJdbc();
-    static ProductCategoryDao productCategoryDataStore = new ProductCategoryDaoJdbc();
-    static SupplierDao supplierDataStore = new SupplierDaoJdbc();
+    private static ProductDao productDataStore = new ProductDaoJdbc();
+    private static ProductCategoryDao productCategoryDataStore = new ProductCategoryDaoJdbc();
+    private static SupplierDao supplierDataStore = new SupplierDaoJdbc();
 
 
     public static ModelAndView renderAll(Request req, Response res) {
-
-        ShoppingCart cart = ProductController.getCart(req);
         int cartItemSum = ProductController.getLineItemSum(req);
 
         Map params = new HashMap<>();
@@ -44,14 +42,16 @@ public class ProductController {
 
         return new ModelAndView(params, "product/index");
     }
+
     public static String addToCart(Request req, Response res) {
         int productId = Integer.parseInt(req.params(":id"));
+        String referer = req.headers("referer");
 
         ShoppingCart sessionCart = ProductController.getCart(req);
         Product product = productDataStore.find(productId);
         sessionCart.add(product);
 
-        res.redirect("/");
+        res.redirect(referer);
         return null;
     }
 
