@@ -1,4 +1,5 @@
 import com.codecool.shop.controller.ProductController;
+import com.codecool.shop.model.ShoppingCart;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 import static spark.Spark.*;
