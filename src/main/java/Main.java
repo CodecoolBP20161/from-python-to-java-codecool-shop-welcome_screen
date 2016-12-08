@@ -21,6 +21,18 @@ public class Main {
         get("/addtocart/:id", ProductController::addToCart);
         get("/removefromcart/:id", ProductController::removeFromCart);
 
+        post("/add_item", (req, res) -> {
+            ((ShoppingCart) req.session().attribute("cart")).changeQuantity(req.queryParams("id"), 1);
+            res.redirect("/list");
+            return null;
+        });
+
+        post("/remove_item", (req, res) -> {
+            ((ShoppingCart) req.session().attribute("cart")).changeQuantity(req.queryParams("id"), -1);
+            res.redirect("/list");
+            return null;
+        });
+
     }
 
 

@@ -7,7 +7,7 @@ import java.util.*;
  * Created by kalman on 2016.11.08..
  */
 public class ShoppingCart {
-    HashMap <Object, Integer> lineItems;
+    HashMap<Object, Integer> lineItems;
     private static ShoppingCart instance = null;
 
 
@@ -18,6 +18,7 @@ public class ShoppingCart {
     public HashMap<Object, Integer> getLineItems() {
         return lineItems;
     }
+
     public static ShoppingCart getInstance() {
         if (instance == null) {
             instance = new ShoppingCart();
@@ -69,50 +70,35 @@ public class ShoppingCart {
         }
         return sum;
     }
-//    ArrayList<Object> listOfKeys = new ArrayList();
-//    ArrayList<Integer> listOfValues = new ArrayList();
-//
-//    public ArrayList getKeys(){
-//
-//        for (Object key : lineItems.keySet()){
-//            listOfKeys.add(key);
-//
-//        }
-//        return listOfKeys;
-//
-//    }
-//
-//
-//    public ArrayList getValues(){
-//
-//        for (Integer value : lineItems.values()){
-//            listOfValues.add(value);
-//
-//        }
-//        return listOfValues;
-//
-//    }
-//
-//    public ArrayList getTotalPrice(){
-//        ArrayList summtotal = new ArrayList();
-//        int totalprice = 0;
-//
-//        for ( Integer i : listOfValues) {
-//            int key = listOfKeys.get(i).get
-//            int price = listOfValues.get(i) * listOfKeys.get(i);
-//            totalprice+=price;
-//
-//        }
-//
-//            summtotal.add(totalprice);
-//
-//            return summtotal;
-//
-//
-//
-//        }
+
+    public float getTotalPrice() {
+
+        float totalprice = 0;
+
+        for (Map.Entry<Object, Integer> entry : lineItems.entrySet()) {
+            Product key = (Product) entry.getKey();
+            Integer value = entry.getValue();
+            totalprice += key.getDefaultPrice() * value;
+
+        }
+
+        return totalprice;
 
 
+    }
 
-
+    public void changeQuantity(String id, int dif) {
+        int idToFind = Integer.parseInt(id);
+        for (Map.Entry<Object, Integer> entry : lineItems.entrySet()) {
+            Product key = (Product) entry.getKey();
+            Integer value = entry.getValue();
+            if (idToFind == key.getId()) {
+                lineItems.put(key, value+ dif);
+                if (value == 0) lineItems.remove(entry);
+                break;
+            }
+        }
+    }
 }
+
+
