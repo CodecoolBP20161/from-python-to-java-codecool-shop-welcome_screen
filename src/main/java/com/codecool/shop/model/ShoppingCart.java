@@ -7,7 +7,7 @@ import java.util.*;
  * Created by kalman on 2016.11.08..
  */
 public class ShoppingCart {
-    HashMap <Object, Integer> lineItems;
+    HashMap<Product, Integer> lineItems;
     private static ShoppingCart instance = null;
 
 
@@ -15,9 +15,10 @@ public class ShoppingCart {
         this.lineItems = new HashMap<>();
     }
 
-    public HashMap<Object, Integer> getLineItems() {
+    public HashMap<Product, Integer> getLineItems() {
         return lineItems;
     }
+
     public static ShoppingCart getInstance() {
         if (instance == null) {
             instance = new ShoppingCart();
@@ -26,12 +27,27 @@ public class ShoppingCart {
     }
 
     public void add(Product product) {
-        if (!lineItems.containsKey(product)) {
-            lineItems.put(product, 1);
-        } else {
-            lineItems.put(product, lineItems.get(product) + 1);
+
+        for (Product prodKey : lineItems.keySet()) {
+            if (prodKey.getId() == product.getId()) {
+                lineItems.put(prodKey, lineItems.get(prodKey) + 1);
+                return;
+            }
+        }
+        lineItems.put(product, 1);
+
+    }
+
+    public void remove(Product product) {
+        for (Object objKey : lineItems.keySet()) {
+            Product prodKey = (Product) objKey;
+            if (prodKey.getId() == product.getId()) {
+                lineItems.remove(objKey);
+                break;
+            }
         }
     }
+
 
     public Integer lineItemsum() {
         Integer sum = 0;
@@ -40,50 +56,43 @@ public class ShoppingCart {
         }
         return sum;
     }
-//    ArrayList<Object> listOfKeys = new ArrayList();
-//    ArrayList<Integer> listOfValues = new ArrayList();
-//
-//    public ArrayList getKeys(){
-//
-//        for (Object key : lineItems.keySet()){
-//            listOfKeys.add(key);
-//
-//        }
-//        return listOfKeys;
-//
-//    }
-//
-//
-//    public ArrayList getValues(){
-//
-//        for (Integer value : lineItems.values()){
-//            listOfValues.add(value);
-//
-//        }
-//        return listOfValues;
-//
-//    }
-//
-//    public ArrayList getTotalPrice(){
-//        ArrayList summtotal = new ArrayList();
-//        int totalprice = 0;
-//
-//        for ( Integer i : listOfValues) {
-//            int key = listOfKeys.get(i).get
-//            int price = listOfValues.get(i) * listOfKeys.get(i);
-//            totalprice+=price;
-//
-//        }
-//
-//            summtotal.add(totalprice);
-//
-//            return summtotal;
-//
-//
-//
-//        }
+
+    public float getTotalPrice() {
+
+        float totalprice = 0;
+
+        for (Map.Entry<Product, Integer> entry : lineItems.entrySet()) {
+            Product key = entry.getKey();
+            Integer value = entry.getValue();
+            totalprice += key.getDefaultPrice() * value;
+
+        }
+
+        return totalprice;
 
 
+    }
 
+    public void changeQuantity(String id, int difference) {
+        int idToFind = Integer.parseInt(id);
+        for (Map.Entry<Product, Integer> entry : lineItems.entrySet()) {
+            Product key = entry.getKey();
+            Integer value = entry.getValue();
+            if (value < 1) {
+                lineItems.remove(key,value);
+                break;
+            }
 
+            else if (idToFind == key.getId()) {
+                lineItems.put(key, value + difference);
+                if(entry.getValue()<1){
+                    lineItems.remove(key,value);
+                }
+                break;
+            }
+
+        }
+    }
 }
+
+
