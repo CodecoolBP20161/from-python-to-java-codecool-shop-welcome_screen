@@ -7,7 +7,7 @@ import java.util.*;
  * Created by kalman on 2016.11.08..
  */
 public class ShoppingCart {
-    HashMap<Object, Integer> lineItems;
+    HashMap<Product, Integer> lineItems;
     private static ShoppingCart instance = null;
 
 
@@ -15,7 +15,7 @@ public class ShoppingCart {
         this.lineItems = new HashMap<>();
     }
 
-    public HashMap<Object, Integer> getLineItems() {
+    public HashMap<Product, Integer> getLineItems() {
         return lineItems;
     }
 
@@ -27,12 +27,28 @@ public class ShoppingCart {
     }
 
     public void add(Product product) {
-        if (!lineItems.containsKey(product)) {
-            lineItems.put(product, 1);
-        } else {
-            lineItems.put(product, lineItems.get(product) + 1);
+
+        for (Product prodKey : lineItems.keySet()) {
+            if (prodKey.getId() == product.getId()) {
+                lineItems.put(prodKey, lineItems.get(prodKey) + 1);
+                return;
+            }
+        }
+        lineItems.put(product, 1);
+
+    }
+
+    public void remove(Product product) {
+        for (Object objKey : lineItems.keySet()) {
+            Product prodKey = (Product) objKey;
+            if (prodKey.getId() == product.getId()) {
+                lineItems.remove(objKey);
+                break;
+            }
         }
     }
+
+
 
     public Integer lineItemsum() {
         Integer sum = 0;
@@ -46,8 +62,8 @@ public class ShoppingCart {
 
         float totalprice = 0;
 
-        for (Map.Entry<Object, Integer> entry : lineItems.entrySet()) {
-            Product key = (Product) entry.getKey();
+        for (Map.Entry<Product, Integer> entry : lineItems.entrySet()) {
+            Product key = entry.getKey();
             Integer value = entry.getValue();
             totalprice += key.getDefaultPrice() * value;
 
@@ -60,8 +76,8 @@ public class ShoppingCart {
 
     public void changeQuantity(String id, int dif) {
         int idToFind = Integer.parseInt(id);
-        for (Map.Entry<Object, Integer> entry : lineItems.entrySet()) {
-            Product key = (Product) entry.getKey();
+        for (Map.Entry<Product, Integer> entry : lineItems.entrySet()) {
+            Product key =  entry.getKey();
             Integer value = entry.getValue();
             if (idToFind == key.getId()) {
                 lineItems.put(key, value+ dif);

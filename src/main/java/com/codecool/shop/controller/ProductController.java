@@ -18,18 +18,13 @@ import java.util.Map;
 
 public class ProductController {
 
+    private static ProductDao productDataStore = new ProductDaoJdbc();
+    private static ProductCategoryDao productCategoryDataStore = new ProductCategoryDaoJdbc();
+    private static SupplierDao supplierDataStore = new SupplierDaoJdbc();
+
 
     public static ModelAndView renderAll(Request req, Response res) {
-        ProductDao productDataStore = new ProductDaoJdbc();
-        ProductCategoryDao productCategoryDataStore = new ProductCategoryDaoJdbc();
-        SupplierDao supplierDataStore = new SupplierDaoJdbc();
-
-        ShoppingCart cart = req.session().attribute("cart");
-        int cartItemSum = 0;
-        try {
-            cartItemSum = cart.lineItemsum();
-        } catch (NullPointerException e) {}
-
+        int cartItemSum = ProductController.getLineItemSum(req);
 
         Map params = new HashMap<>();
         params.put("category", productCategoryDataStore.find(1));
@@ -42,78 +37,85 @@ public class ProductController {
     }
 
     public static ModelAndView renderProducts(Request req, Response res) {
-        ProductDao productDataStore = new ProductDaoJdbc();
-        ProductCategoryDao productCategoryDataStore = new ProductCategoryDaoJdbc();
-        SupplierDao supplierDataStore = new SupplierDaoJdbc();
 
-        ShoppingCart cart = req.session().attribute("cart");
-        int cartItemSum = 0;
-        try {
-            cartItemSum = cart.lineItemsum();
-        } catch (NullPointerException e) {}
+        Map params = ProductController.createParams(req);
+
+        return new ModelAndView(params, "product/index");
+    }
+
+    public static String addToCart(Request req, Response res) {
+        int productId = Integer.parseInt(req.params(":id"));
+        String referer = req.headers("referer");
+
+        ShoppingCart sessionCart = ProductController.getCart(req);
+        Product product = productDataStore.find(productId);
+        sessionCart.add(product);
+
+        res.redirect(referer);
+        return null;
+    }
+
+    public static String removeFromCart(Request req, Response res) {
+        Product product = productDataStore.find(Integer.parseInt(req.params(":id")));
+        String referer = req.headers("referer");
+
+        ShoppingCart sessionCart = ProductController.getCart(req);
+
+        sessionCart.remove(product);
+
+        res.redirect(referer);
+        return null;
+    }
+
+
+    public static ModelAndView renderSupplier(Request req, Response res) {
+
+            Map params = ProductController.createParams(req);
+
+            return new ModelAndView(params, "product/index");
+    }
+
+    public static ModelAndView renderList(Request req, Response res) {
+        ShoppingCart cart = ProductController.getCart(req);
 
         Map params = new HashMap<>();
+        params.put("cart", cart);
+
+        return new ModelAndView(params, "product/list");
+    }
+
+    public static Map createParams(Request req) {
+
+        Map params = new HashMap<>();
+        int cartItemSum = ProductController.getLineItemSum(req);
+
         params.put("category", productCategoryDataStore.find(Integer.parseInt(req.params(":id"))));
         params.put("categories", productCategoryDataStore.getAll());
         params.put("suppliers", supplierDataStore.getAll());
         params.put("products", productDataStore.getBy(productCategoryDataStore.find(Integer.parseInt(req.params(":id")))));
         params.put("cart", cartItemSum);
 
-
-        return new ModelAndView(params, "product/index");
+        return params;
     }
-    public static String addToCart(Request req, Response res) {
-        int productId = Integer.parseInt(req.params(":id"));
+
+    public static ShoppingCart getCart(Request req) {
         if (req.session().attribute("cart") == null) {
-            ShoppingCart Cart = new ShoppingCart();
-            req.session().attribute("cart", Cart);
+            ShoppingCart cart = new ShoppingCart();
+            req.session().attribute("cart", cart);
         }
-
-        ShoppingCart sessionCart = req.session().attribute("cart");
-        ProductDao productDataStore = new ProductDaoJdbc();
-        Product product = productDataStore.find(productId);
-        sessionCart.add(product);
-
-        res.redirect("/");
-        return null;
-    }
-
-
-    public static ModelAndView renderSupplier(Request req, Response res) {
-        ProductDao productDataStore = new ProductDaoJdbc();
-        ProductCategoryDao productCategoryDataStore = new ProductCategoryDaoJdbc();
-        SupplierDao supplierDataStore = new SupplierDaoJdbc();
-
-            ShoppingCart cart = req.session().attribute("cart");
-            int cartItemSum = 0;
-            try {
-                cartItemSum = cart.lineItemsum();
-            } catch (NullPointerException e) {}
-
-
-            Map params = new HashMap<>();
-
-        params.put("category", supplierDataStore.find(Integer.parseInt(req.params(":id"))));
-        params.put("categories", productCategoryDataStore.getAll());
-        params.put("suppliers", supplierDataStore.getAll());
-        params.put("products", productDataStore.getBy(supplierDataStore.find(Integer.parseInt(req.params(":id")))));
-        params.put("cart", cartItemSum);
-
-            return new ModelAndView(params, "product/index");
-    }
-
-    public static ModelAndView renderList(Request req, Response res) {
         ShoppingCart cart = req.session().attribute("cart");
 
-        Map params = new HashMap<>();
-        params.put("cart", cart);
-//        params.put("quantity", );
-//        params.put("totalprice", cart.getTotalPrice() );
-
-        return new ModelAndView(params, "product/list");
+        return cart;
     }
 
+    public static int getLineItemSum(Request req) {
 
+        ShoppingCart cart = ProductController.getCart(req);
+        int cartItemSum = 0;
+        cartItemSum = cart.lineItemsum();
+
+        return cartItemSum;
+    }
 }
 
 

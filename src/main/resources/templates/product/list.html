@@ -52,7 +52,7 @@
             <td th:text="${item.value}" >Quantity</td>
             <td th:text="${item.key.defaultPrice} + '$'">defPrice</td>
             <td th:text="${item.key.defaultPrice}*${item.value}+ '$'">Total Price</td>
-            <td><a class="btn btn-warning btn-md">Delete</a></td>
+            <td><a class="btn btn-warning btn-md" th:href="'/removefromcart/' + ${item.key.id}">Delete</a></td>
             <td>
                 <form th:method="post" action="/add_item">
                 <input  type="hidden" name="id" th:value = "*{item.key.getId()}"/>
@@ -67,12 +67,12 @@
             </td>
 
         </tr>
-        <tr >
+        <!--<tr th:each="price : ${cart.getTotalPrice()}">-->
+            <!--<td th:text="${price}">Products></td>-->
 
                 <td>Total price: <strong th:text="${cart.getTotalPrice()}+' $'"></strong></td>
 
-
-        </tr>
+        <!--</tr>-->
 
 
         </tbody>
