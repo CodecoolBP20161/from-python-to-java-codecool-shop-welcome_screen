@@ -55,6 +55,18 @@ public class ProductController {
         return null;
     }
 
+    public static String removeFromCart(Request req, Response res) {
+        Product product = productDataStore.find(Integer.parseInt(req.params(":id")));
+        String referer = req.headers("referer");
+
+        ShoppingCart sessionCart = ProductController.getCart(req);
+
+        sessionCart.remove(product);
+
+        res.redirect(referer);
+        return null;
+    }
+
 
     public static ModelAndView renderSupplier(Request req, Response res) {
 

@@ -26,12 +26,35 @@ public class ShoppingCart {
     }
 
     public void add(Product product) {
+//        for (Object objKey : lineItems.keySet()) {
+//            Product prodKey = (Product) objKey;
+//            if (prodKey.getId() == product.getId()) {
+//                lineItems.put(prodKey, lineItems.get(prodKey) + 1);
+//            }
+//            else {
+//                lineItems.put(product, 1);
+//            }
+//        }
+
+
+
         if (!lineItems.containsKey(product)) {
             lineItems.put(product, 1);
         } else {
             lineItems.put(product, lineItems.get(product) + 1);
         }
     }
+
+    public void remove(Product product) {
+        for (Object objKey : lineItems.keySet()) {
+            Product prodKey = (Product) objKey;
+            if (prodKey.getId() == product.getId()) {
+                lineItems.remove(objKey);
+            }
+        }
+    }
+
+
 
     public Integer lineItemsum() {
         Integer sum = 0;
