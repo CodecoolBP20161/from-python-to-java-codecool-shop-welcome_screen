@@ -49,7 +49,6 @@ public class ShoppingCart {
     }
 
 
-
     public Integer lineItemsum() {
         Integer sum = 0;
         for (Integer i : this.lineItems.values()) {
@@ -74,16 +73,24 @@ public class ShoppingCart {
 
     }
 
-    public void changeQuantity(String id, int dif) {
+    public void changeQuantity(String id, int difference) {
         int idToFind = Integer.parseInt(id);
         for (Map.Entry<Product, Integer> entry : lineItems.entrySet()) {
-            Product key =  entry.getKey();
+            Product key = entry.getKey();
             Integer value = entry.getValue();
-            if (idToFind == key.getId()) {
-                lineItems.put(key, value+ dif);
-                if (value == 0) lineItems.remove(entry);
+            if (value < 1) {
+                lineItems.remove(key,value);
                 break;
             }
+
+            else if (idToFind == key.getId()) {
+                lineItems.put(key, value + difference);
+                if(entry.getValue()<1){
+                    lineItems.remove(key,value);
+                }
+                break;
+            }
+
         }
     }
 }
