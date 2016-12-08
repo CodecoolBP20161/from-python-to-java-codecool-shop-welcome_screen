@@ -30,6 +30,18 @@ public class Main {
         get("/list", ProductController::renderList, new ThymeleafTemplateEngine());
         get("/addtocart/:id", ProductController::addToCart);
 
+        post("/add_item", (req, res) -> {
+            ((ShoppingCart) req.session().attribute("cart")).changeQuantity(req.queryParams("id"), 1);
+            res.redirect("/list");
+            return null;
+        });
+
+        post("/remove_item", (req, res) -> {
+            ((ShoppingCart) req.session().attribute("cart")).changeQuantity(req.queryParams("id"), -1);
+            res.redirect("/list");
+            return null;
+        });
+
     }
 
 
