@@ -50,6 +50,7 @@ public class ShoppingCart {
             Product prodKey = (Product) objKey;
             if (prodKey.getId() == product.getId()) {
                 lineItems.remove(objKey);
+                break;
             }
         }
     }
