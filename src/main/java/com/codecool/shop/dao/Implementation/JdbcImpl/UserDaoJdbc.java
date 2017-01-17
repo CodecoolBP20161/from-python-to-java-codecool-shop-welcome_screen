@@ -32,7 +32,29 @@ public class UserDaoJdbc implements UserDao {
     }
 
     @Override
-    public HashMap<String, String> getAll() {
+    public ArrayList<User> getAll() {
+        String query = "SELECT * FROM users;";
+
+        ArrayList<User> UserList = new ArrayList<>();
+
+        try (Connection connection = getConnection();
+             Statement statement =connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)
+        ){
+            while (resultSet.next()){
+                User result = new User(
+                        resultSet.getString("email"),
+                        resultSet.getString("name"));
+                UserList.add(result);
+            }
+            return UserList;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return UserList;
+    }
+
+    public HashMap<String, String> getAllUserData() {
         String query = "SELECT * FROM users;";
 
         HashMap<String, String> resultMap = new HashMap<>();
@@ -53,6 +75,8 @@ public class UserDaoJdbc implements UserDao {
         }
         return resultMap;
     }
+
+
 
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection(

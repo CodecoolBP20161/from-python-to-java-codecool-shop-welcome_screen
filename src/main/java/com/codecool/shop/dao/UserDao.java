@@ -2,6 +2,7 @@ package com.codecool.shop.dao;
 
 import com.codecool.shop.model.User;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -12,5 +13,5 @@ public interface UserDao {
     void add(User user);
     void remove(int id);
 
-    HashMap<String, String> getAll();
+    ArrayList<User> getAll();
 }
