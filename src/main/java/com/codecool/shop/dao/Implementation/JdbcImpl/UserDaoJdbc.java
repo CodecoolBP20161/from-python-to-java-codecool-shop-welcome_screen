@@ -5,11 +5,10 @@ import com.codecool.shop.dao.UserDao;
 import com.codecool.shop.model.Supplier;
 import com.codecool.shop.model.User;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by kalman on 2017.01.17..
@@ -34,7 +33,25 @@ public class UserDaoJdbc implements UserDao {
 
     @Override
     public HashMap<String, String> getAll() {
-        return null;
+        String query = "SELECT * FROM users;";
+
+        HashMap<String, String> resultMap = new HashMap<>();
+
+        try (Connection connection = getConnection();
+             Statement statement =connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)
+        ){
+            while (resultSet.next()){
+                String name = resultSet.getString("name");
+                String emailAddress = resultSet.getString("email");
+
+                resultMap.put(emailAddress, name);
+            }
+            return resultMap;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return resultMap;
     }
 
     private Connection getConnection() throws SQLException {
