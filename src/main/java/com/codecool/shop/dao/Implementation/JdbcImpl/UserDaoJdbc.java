@@ -2,13 +2,11 @@ package com.codecool.shop.dao.Implementation.JdbcImpl;
 
 import com.codecool.shop.controller.ConfigController;
 import com.codecool.shop.dao.UserDao;
-import com.codecool.shop.model.Supplier;
 import com.codecool.shop.model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by kalman on 2017.01.17..
@@ -23,7 +21,6 @@ public class UserDaoJdbc implements UserDao {
 
     @Override
     public void add(User user) {
-
     }
 
     @Override
