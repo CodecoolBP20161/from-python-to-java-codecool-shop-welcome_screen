@@ -31,6 +31,18 @@ FOREIGN KEY (supplier) REFERENCES supplier(supplier_id),
 FOREIGN KEY(prodcat) REFERENCES productcategory(productcategory_id)
 );
 
+CREATE TABLE users
+(
+  email varchar(50) PRIMARY KEY ,
+  name varchar(50)
+);
+
+
+INSERT INTO users(email, name) VALUES('revkalman@gmail.com', 'Bela');
+INSERT INTO users(email, name) VALUES('seradam89@gmail.com', 'Gabor');
+INSERT INTO users(email, name) VALUES('baloghdani88@gmail.com', 'Joca');
+INSERT INTO users(email, name) VALUES('vogronicspatrik@gmail.com', 'Isti');
+
 
 
 INSERT INTO supplier(name, description) VALUES('Apple', 'Rich&Famous alias The Gold& The Beautiful');
