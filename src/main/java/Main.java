@@ -1,3 +1,4 @@
+import com.codecool.shop.controller.LotteryController;
 import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.model.ShoppingCart;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
@@ -22,6 +23,9 @@ public class Main {
         get("/addtocart/:id", ProductController::addToCart);
         get("/removefromcart/:id", ProductController::removeFromCart);
 
+        post("/toto", LotteryController::sendRequest);
+
+
         post("/add_item", (req, res) -> {
             ((ShoppingCart) req.session().attribute("cart")).changeQuantity(req.queryParams("id"), 1);
             res.redirect("/list");
@@ -33,8 +37,5 @@ public class Main {
             res.redirect("/list");
             return null;
         });
-
     }
-
-
 }
