@@ -38,9 +38,9 @@ CREATE TABLE users
 );
 
 
-INSERT INTO users(email, name) VALUES('testadress1@gmail.com', 'Béla');
-INSERT INTO users(email, name) VALUES('testadress2@gmail.com', 'Gábor');
-INSERT INTO users(email, name) VALUES('testadress3@gmail.com', 'Jocó');
+INSERT INTO users(email, name) VALUES('revkalman@gmail.com', 'Béla');
+INSERT INTO users(email, name) VALUES('revkalman25@gmail.com', 'Gábor');
+INSERT INTO users(email, name) VALUES('revkalman65@gmail.com', 'Jocó');
 INSERT INTO users(email, name) VALUES('testadress4@gmail.com', 'Isti');
 
 

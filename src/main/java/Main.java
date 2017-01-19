@@ -23,7 +23,7 @@ public class Main {
         get("/addtocart/:id", ProductController::addToCart);
         get("/removefromcart/:id", ProductController::removeFromCart);
 
-        post("/toto", LotteryController::sendRequest);
+        get("/toto", LotteryController::sendRequest);
 
 
         post("/add_item", (req, res) -> {

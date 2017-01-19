@@ -16,7 +16,7 @@ import static org.apache.http.entity.ContentType.APPLICATION_JSON;
  * Created by seradam on 2017.01.17..
  */
 public class LotteryController {
-    private static final String SERVICE_URL = "localhost:60001/api/random";
+    private static final String SERVICE_URL = "http://localhost:60001/api/random";
 
     public String sendBuLL() throws IOException, URISyntaxException {
         URIBuilder builder = new URIBuilder(SERVICE_URL);
@@ -26,10 +26,8 @@ public class LotteryController {
         String toSend = json.toString();
 
 
-        String emailJSON = toSend;
-
         return org.apache.http.client.fluent.Request.Post(builder.build())
-                .bodyString(emailJSON, APPLICATION_JSON)
+                .bodyString(toSend, APPLICATION_JSON)
                 .execute()
                 .returnContent()
                 .asString();
