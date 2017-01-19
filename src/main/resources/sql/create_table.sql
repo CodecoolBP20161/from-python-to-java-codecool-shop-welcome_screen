@@ -38,10 +38,10 @@ CREATE TABLE users
 );
 
 
-INSERT INTO users(email, name) VALUES('revkalman@gmail.com', 'Béla');
-INSERT INTO users(email, name) VALUES('revkalman25@gmail.com', 'Gábor');
-INSERT INTO users(email, name) VALUES('revkalman65@gmail.com', 'Jocó');
-INSERT INTO users(email, name) VALUES('testadress4@gmail.com', 'Isti');
+INSERT INTO users(email, name) VALUES('revkalman@gmail.com', 'Bela');
+INSERT INTO users(email, name) VALUES('seradam89@gmail.com', 'Gabor');
+INSERT INTO users(email, name) VALUES('baloghdani88@gmail.com', 'Joca');
+INSERT INTO users(email, name) VALUES('vogronicspatrik@gmail.com', 'Isti');
 
 
 

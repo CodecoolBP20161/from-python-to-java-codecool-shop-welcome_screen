@@ -18,38 +18,26 @@ import static org.apache.http.entity.ContentType.APPLICATION_JSON;
 public class LotteryController {
     private static final String SERVICE_URL = "http://localhost:60001/api/random";
 
-    public String sendBuLL() throws IOException, URISyntaxException {
+    public String createJSON() throws IOException, URISyntaxException {
         URIBuilder builder = new URIBuilder(SERVICE_URL);
-
         UserDaoJdbc datahandler = new UserDaoJdbc();
         JSONObject json =  new JSONObject(datahandler.getAllUserData());
         String toSend = json.toString();
-
-
         return org.apache.http.client.fluent.Request.Post(builder.build())
                 .bodyString(toSend, APPLICATION_JSON)
                 .execute()
                 .returnContent()
                 .asString();
-
     }
-
     public static String sendRequest(Request req, spark.Response res){
         LotteryController ez = new LotteryController();
-
-
         try {
-            return ez.sendBuLL();
+            return ez.createJSON();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-        return "nyet";
-    }
-
-    private String execute(String url) throws IOException, URISyntaxException {
-        URI uri = new URIBuilder(SERVICE_URL).build();
-        return org.apache.http.client.fluent.Request.Get(uri).execute().returnContent().asString();
+        return "nope";
     }
 }
