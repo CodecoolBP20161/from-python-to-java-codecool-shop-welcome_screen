@@ -1,13 +1,11 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.Implementation.JdbcImpl.UserDaoJdbc;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.utils.URIBuilder;
 import org.json.JSONObject;
 import spark.Request;
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 
 import static org.apache.http.entity.ContentType.APPLICATION_JSON;
@@ -38,6 +36,6 @@ public class LotteryController {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-        return "nope";
+        return "service not available";
     }
 }
